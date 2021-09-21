@@ -1,39 +1,81 @@
 import React from 'react';
+import axios from 'axios';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
-export class MainView extends React.Component {
+import { LoginView } from "../login-view/login-view";
+import { RegistrationView } from "../registration-view/registration-view";
+
+import "./main-view.scss";
+
+class MainView extends React.Component {
     constructor() {
         super();
         this.state = {
-            movies: [
-                { _id: 1, Title: 'Inception', Description: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.', ImagePath: require('../img/inception.jpeg'), Genre: 'genre', Director: 'director' },
-                { _id: 2, Title: 'Shawshank', Description: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', ImagePath: require('../img/shawshank.jpeg'), Genre: 'genre', Director: 'director' },
-                { _id: 3, Title: 'Gladiator', Description: 'A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.', ImagePath: require('../img/gladiator.png'), Genre: 'genre', Director: 'director' }
-            ],
-            selectedMovie: null
-        }
+            movies: [],
+            selectedMovie: null,
+            user: null,
+            register: null
+        };
     }
 
-    setSelectedMovie(newSelectedMovie) {
+    componentDidMount() {
+        axios.get('https://niliflix.herokuapp.com/movies')
+            .then(response => {
+                this.setState({
+                    movies: response.data
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+    setSelectedMovie(movie) {
         this.setState({
-            selectedMovie: newSelectedMovie
+            selectedMovie: movie
+        });
+    }
+
+    onLoggedIn(user) {
+        this.setState({
+            user
+        });
+    }
+
+    onRegistration(register) {
+        this.setState({
+            register
         });
     }
 
     render() {
-        const { movies, selectedMovie } = this.state;
+        const { movies, selectedMovie, user, register } = this.state;
 
-        if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
+        if (!user) return < LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+
+        if (!register) return < RegistrationView onRegistration={register => this.onRegistration(register)} />
+
+        if (movies.length === 0) return <div className="main-view" />;
 
         return (
-            <div className="main-view">
+            <Row className="main-view justify-content-md-center">
                 {selectedMovie
-                    ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                    ? (
+                        <Col md={8}>
+                            <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                        </Col>
+                    )
                     : movies.map(movie => (
-                        <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }} />
+                        <Col className="movie-card-col mt-2" xs={12} md={8} lg={4} xl={3}>
+                            <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                        </Col>
                     ))
                 }
-            </div>
+            </Row>
         );
     }
 }
+export default MainView;
