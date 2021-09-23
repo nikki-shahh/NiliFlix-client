@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
+import { Link } from "react-router-dom";
 import "./registration-view.scss";
 
 export function RegistrationView(props) {
@@ -46,6 +46,7 @@ export function RegistrationView(props) {
                     Sign up
                 </Button>
             </Form>
+            <div className="sign-up">Already registered? <Link to="/">Log in here</Link></div>
         </div>
     );
 }

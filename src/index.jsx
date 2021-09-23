@@ -4,12 +4,13 @@ import MainView from './components/main-view/main-view';
 import Container from 'react-bootstrap/Container';
 
 import './index.scss';
+import { App } from './app';
 
 class MyFlixApplication extends React.Component {
     render() {
         return (
             <Container>
-                <MainView />
+                <App></App>
             </Container>
         );
     }

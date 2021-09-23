@@ -5,6 +5,8 @@ import Button from "react-bootstrap/Button";
 
 import "./login-view.scss";
 import { RegistrationView } from "../registration-view/registration-view";
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export function LoginView(props) {
     const [username, setUsername] = useState('');
@@ -13,7 +15,16 @@ export function LoginView(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(username, password);
-        props.onLoggedIn(username);
+        axios.post("http://niliflix.herokuapp.com/login", {
+            Username: username,
+            Password: password
+        })
+            .then(response => {
+                console.log(response);
+                localStorage.setItem("user", response.data)
+            })
+            .catch(err => console.error(err))
+
     };
 
     return (
@@ -33,7 +44,7 @@ export function LoginView(props) {
                 </Form.Group>
                 <Button variant="info" type="submit" onClick={handleSubmit}>Sign in</Button>
             </Form>
-            <div className="sign-up">New to Niliflix? <a href="">Sign up here</a></div>
+            <div className="sign-up">New to Niliflix? <Link to="/register">Sign up here</Link></div>
         </div >
 
     );
