@@ -2,19 +2,30 @@ import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./registration-view.scss";
+import axios from 'axios';
 
 export function RegistrationView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [birthday, setBirthday] = useState('');
+    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password, email, birthday);
-        props.onRegistration(username);
+        axios.post("http://niliflix.herokuapp.com/users", {
+            Username: username,
+            Password: password,
+            Email: email,
+            Birthdat: birthday
+        })
+            .then(response => {
+                console.log(response);
+                history.push("/")
+            })
+            .catch(err => console.error(err))
     };
 
     return (
