@@ -26177,6 +26177,7 @@ function LoginView(props) {
     _s();
     const [username, setUsername] = _react.useState('');
     const [password, setPassword] = _react.useState('');
+    const history = _reactRouterDom.useHistory();
     const handleSubmit = (e)=>{
         e.preventDefault();
         console.log(username, password);
@@ -26185,7 +26186,8 @@ function LoginView(props) {
             Password: password
         }).then((response)=>{
             console.log(response);
-            localStorage.setItem("user", response.data);
+            localStorage.setItem("user", response.data.token);
+            history.push("/movies");
         }).catch((err)=>console.error(err)
         );
     };
@@ -26193,7 +26195,7 @@ function LoginView(props) {
         className: "login-wrapper",
         __source: {
             fileName: "src/components/login-view/login-view.jsx",
-            lineNumber: 31
+            lineNumber: 33
         },
         __self: this,
         children: [
@@ -26201,7 +26203,7 @@ function LoginView(props) {
                 className: "w-25 m-auto",
                 __source: {
                     fileName: "src/components/login-view/login-view.jsx",
-                    lineNumber: 32
+                    lineNumber: 34
                 },
                 __self: this,
                 children: [
@@ -26210,14 +26212,14 @@ function LoginView(props) {
                         controlId: "formBasicUsername",
                         __source: {
                             fileName: "src/components/login-view/login-view.jsx",
-                            lineNumber: 33
+                            lineNumber: 35
                         },
                         __self: this,
                         children: [
                             /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                                 __source: {
                                     fileName: "src/components/login-view/login-view.jsx",
-                                    lineNumber: 34
+                                    lineNumber: 36
                                 },
                                 __self: this,
                                 children: "Username:"
@@ -26229,7 +26231,7 @@ function LoginView(props) {
                                 ,
                                 __source: {
                                     fileName: "src/components/login-view/login-view.jsx",
-                                    lineNumber: 37
+                                    lineNumber: 39
                                 },
                                 __self: this
                             })
@@ -26240,14 +26242,14 @@ function LoginView(props) {
                         controlId: "formBasicPassword",
                         __source: {
                             fileName: "src/components/login-view/login-view.jsx",
-                            lineNumber: 39
+                            lineNumber: 41
                         },
                         __self: this,
                         children: [
                             /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                                 __source: {
                                     fileName: "src/components/login-view/login-view.jsx",
-                                    lineNumber: 40
+                                    lineNumber: 42
                                 },
                                 __self: this,
                                 children: "Password:"
@@ -26259,7 +26261,7 @@ function LoginView(props) {
                                 ,
                                 __source: {
                                     fileName: "src/components/login-view/login-view.jsx",
-                                    lineNumber: 43
+                                    lineNumber: 45
                                 },
                                 __self: this
                             })
@@ -26271,7 +26273,7 @@ function LoginView(props) {
                         onClick: handleSubmit,
                         __source: {
                             fileName: "src/components/login-view/login-view.jsx",
-                            lineNumber: 45
+                            lineNumber: 47
                         },
                         __self: this,
                         children: "Sign in"
@@ -26282,7 +26284,7 @@ function LoginView(props) {
                 className: "sign-up",
                 __source: {
                     fileName: "src/components/login-view/login-view.jsx",
-                    lineNumber: 47
+                    lineNumber: 49
                 },
                 __self: this,
                 children: [
@@ -26291,7 +26293,7 @@ function LoginView(props) {
                         to: "/register",
                         __source: {
                             fileName: "src/components/login-view/login-view.jsx",
-                            lineNumber: 47
+                            lineNumber: 49
                         },
                         __self: this,
                         children: "Sign up here"
@@ -26301,7 +26303,9 @@ function LoginView(props) {
         ]
     }));
 }
-_s(LoginView, "wuQOK7xaXdVz4RMrZQhWbI751Oc=");
+_s(LoginView, "tv8EzuaX//5WlTHeteRkd5b7x4w=", false, function() {
+    return [_reactRouterDom.useHistory];
+});
 _c = LoginView;
 LoginView.propTypes = {
     user: _propTypesDefault.default.shape({
@@ -29832,6 +29836,10 @@ class Movielist extends _reactDefault.default.Component {
         movies: []
     };
     componentDidMount() {
+        if (!localStorage.getItem("user")) {
+            alert("You need to log in!");
+            return;
+        }
         _axiosDefault.default.get("http://niliflix.herokuapp.com/movies").then((response)=>{
             console.log(response);
             this.setState({
@@ -29845,7 +29853,7 @@ class Movielist extends _reactDefault.default.Component {
             className: "main-view justify-content-md-center",
             __source: {
                 fileName: "src/components/movie-list/movie-list.jsx",
-                lineNumber: 28
+                lineNumber: 32
             },
             __self: this,
             children: this.state.movies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
@@ -29856,7 +29864,7 @@ class Movielist extends _reactDefault.default.Component {
                     xl: 3,
                     __source: {
                         fileName: "src/components/movie-list/movie-list.jsx",
-                        lineNumber: 35
+                        lineNumber: 39
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
@@ -29866,7 +29874,7 @@ class Movielist extends _reactDefault.default.Component {
                         },
                         __source: {
                             fileName: "src/components/movie-list/movie-list.jsx",
-                            lineNumber: 36
+                            lineNumber: 40
                         },
                         __self: this
                     }, movie._id)

@@ -14,6 +14,10 @@ class Movielist extends React.Component {
         movies: []
     }
     componentDidMount() {
+        if (!localStorage.getItem("user")) {
+            alert("You need to log in!");
+            return;
+        }
         axios.get("http://niliflix.herokuapp.com/movies")
             .then(response => {
                 console.log(response);

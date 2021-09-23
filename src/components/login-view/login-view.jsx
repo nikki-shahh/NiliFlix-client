@@ -5,12 +5,13 @@ import Button from "react-bootstrap/Button";
 
 import "./login-view.scss";
 import { RegistrationView } from "../registration-view/registration-view";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export function LoginView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,7 +22,8 @@ export function LoginView(props) {
         })
             .then(response => {
                 console.log(response);
-                localStorage.setItem("user", response.data)
+                localStorage.setItem("user", response.data.token)
+                history.push("/movies")
             })
             .catch(err => console.error(err))
 
