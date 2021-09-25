@@ -4,22 +4,37 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 import "./movie-card.scss";
+import { useHistory } from 'react-router-dom';
 
-export class MovieCard extends React.Component {
-    render() {
-        const { movie, onMovieClick } = this.props;
-        return (
-            <Card className="movie-card">
-                <Card.Img variant="top" src={movie.ImagePath} />
-                <Card.Body>
-                    <Card.Title>{movie.Title}</Card.Title>
-                    <Card.Text>{movie.Description}</Card.Text>
-                    <Button onClick={() => onMovieClick(movie)} variant="link">See more</Button>
-                </Card.Body>
-            </Card>
-        );
+
+export function MovieCard(props) {
+    const { movie, onMovieClick } = props;
+    const history = useHistory();
+
+    const seeMore = (movie) => {
+        // const str = `movie title: ${movie.Title} <br>
+        //             description:  ${movie.Description} <br>
+        //             director: ${movie.Director.Name} <br>
+        //             genre: ${movie.Genre.Name} <br>
+        //             `;
+
+        // alert(JSON.stringify(str));
+        history.push(`movie-view/${movie.Title}`)
     }
+
+
+    return (
+        <Card className="movie-card">
+            <Card.Img variant="top" src={movie.ImagePath} />
+            <Card.Body>
+                <Card.Title>{movie.Title}</Card.Title>
+                <Card.Text>{movie.Description}</Card.Text>
+                <Button onClick={() => seeMore(movie)} variant="link">See more</Button>
+            </Card.Body>
+        </Card>
+    );
 }
+
 
 MovieCard.propTypes = {
     movie: PropTypes.shape({

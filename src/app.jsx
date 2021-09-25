@@ -19,6 +19,9 @@ export class App extends React.Component {
                 <Route exact={true} path="/movies">
                     <Movielist></Movielist>
                 </Route>
+                <Route exact={true} path="/movie-view/:title">
+                    <MovieView></MovieView>
+                </Route>
             </BrowserRouter>
         );
     }

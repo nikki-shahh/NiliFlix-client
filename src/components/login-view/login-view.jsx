@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import "./login-view.scss";
-import { RegistrationView } from "../registration-view/registration-view";
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
@@ -22,7 +21,7 @@ export function LoginView(props) {
         })
             .then(response => {
                 console.log(response);
-                localStorage.setItem("user", response.data.token)
+                localStorage.setItem("user", response.data.token);
                 history.push("/movies")
             })
             .catch(err => console.error(err))
