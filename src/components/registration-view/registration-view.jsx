@@ -23,7 +23,7 @@ export function RegistrationView(props) {
         })
             .then(response => {
                 console.log(response);
-                history.push("/")
+                window.location.replace = "/";
             })
             .catch(err => console.error(err))
     };
