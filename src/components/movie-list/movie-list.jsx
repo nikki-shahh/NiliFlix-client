@@ -2,23 +2,15 @@ import React from 'react';
 import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
-import { LoginView } from "../login-view/login-view";
-import { RegistrationView } from "../registration-view/registration-view";
+import { HeaderComponent } from '../header/HeaderComponent';
 
 class Movielist extends React.Component {
     state = {
         movies: [],
         selectedMovie: {}
-    }
-    setSelectedMovie(movie) {
-        this.setState({
-            selectedMovie: movie
-        });
     }
 
     componentDidMount() {
@@ -27,9 +19,9 @@ class Movielist extends React.Component {
             return;
         }
         /*getMovies(token) {*/
-        axios.get("http://niliflix.herokuapp.com/movies"/*, {
-            headers: { Authorization: `Bearer ${token}`}
-          }*/)
+        axios.get("http://niliflix.herokuapp.com/movies", {
+            headers: { Authorization: `Bearer ${localStorage.getItem("user")}` }
+        })
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -44,6 +36,7 @@ class Movielist extends React.Component {
 
         return (
             <div>
+                <HeaderComponent></HeaderComponent>
                 <Row className="main-view justify-content-md-center">
                     {
                         this.state.movies.map(movie => (

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import "./registration-view.scss";
 import axios from 'axios';
 
@@ -11,7 +11,6 @@ export function RegistrationView(props) {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [birthday, setBirthday] = useState('');
-    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,11 +18,13 @@ export function RegistrationView(props) {
             Username: username,
             Password: password,
             Email: email,
-            Birthdat: birthday
+            Birthday: birthday
         })
             .then(response => {
                 console.log(response);
-                window.location.replace = "/";
+                alert("Thanks for your registration!")
+                window.location.replace("/");
+
             })
             .catch(err => console.error(err))
     };

@@ -4,12 +4,13 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import "./login-view.scss";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export function LoginView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,7 +22,9 @@ export function LoginView(props) {
             .then(response => {
                 console.log(response);
                 localStorage.setItem("user", response.data.token);
-                window.location.replace = "/movies";
+                localStorage.setItem("username", response.data.user.Username);
+                localStorage.setItem("userObj", JSON.stringify(response.data))
+                history.push("/movies")
             })
             .catch(err => console.error(err))
 

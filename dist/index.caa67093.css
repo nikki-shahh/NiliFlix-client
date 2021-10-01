@@ -2,6 +2,33 @@ body {
   color: rgba(214, 210, 210, 0.938) !important;
   background-color: #050505 !important;
 }
+.login-wrapper {
+  min-width: 600px;
+  border: 1px solid rgba(55, 250, 250, 0.493);
+  position: fixed;
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+}
+.movie-card-col {
+  height: 700px;
+  overflow: hidden;
+  z-index: 9;
+  transition: 0.4s ease-in-out;
+  color: rgba(7, 7, 7, 0.568);
+}
+.movie-card-col:hover, .movie-card-col:active {
+  transform: scale(0.97);
+  cursor: pointer;
+}
+
+.movie-card-col img {
+  height: auto;
+  width: auto;
+}
 .movie-card {
   text-align: center;
 }
@@ -9,6 +36,18 @@ body {
 .card-body {
   color: rgba(55, 250, 250, 0.493);
   background-color: #080808;
+}
+.nav li {
+    display: inline;
+    padding-right: 20px;
+}
+.nav{
+    float: right;
+    
+}
+
+header {
+    padding-bottom: 80px;
 }
 .movie-view {
   color: rgba(55, 250, 250, 0.493);
@@ -39,17 +78,6 @@ body {
   font-size: 20px;
   font-style: italic;
 }
-.login-wrapper {
-  min-width: 600px;
-  border: 1px solid rgba(55, 250, 250, 0.493);
-  position: fixed;
-  border-radius: 10px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  padding: 20px;
-}
 .registration-view {
   min-width: 600px;
   border: 1px solid rgba(55, 250, 250, 0.493);
@@ -61,20 +89,10 @@ body {
   text-align: center;
   padding: 20px;
 }
-.movie-card-col {
-  height: 700px;
-  overflow: hidden;
-  z-index: 9;
-  transition: 0.4s ease-in-out;
-  color: rgba(7, 7, 7, 0.568);
-}
-.movie-card-col:hover, .movie-card-col:active {
-  transform: scale(0.97);
-  cursor: pointer;
-}
-
-.movie-card-col img {
-  height: auto;
-  width: auto;
+.profile-view {
+  padding: 30px;
+  border: 0.3px solid #c0bfbf;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 15px;
 }
 /*# sourceMappingURL=index.caa67093.css.map */
