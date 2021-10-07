@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import './profile-view.scss';
+import './profile-view.css';
 import { Row } from 'react-bootstrap';
 import { HeaderComponent } from '../header/HeaderComponent';
 

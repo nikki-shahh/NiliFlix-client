@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 
 import { LoginView } from "../login-view/login-view";
 
-import "./main-view.scss";
+import "./main-view.css";
 
 class MainView extends React.Component {
     constructor() {

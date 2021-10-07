@@ -3,14 +3,13 @@ import PropTypes from "prop-types";
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
-import "./movie-view.scss";
+import "./movie-view.css";
 import axios from 'axios';
 
 export class MovieView extends React.Component {
 
     state = {
         movie: {},
-        genreName: {},
         onBackClick: null
     };
     movieTitle = window.location.href.split("/movie-view/")[1];
@@ -21,19 +20,19 @@ export class MovieView extends React.Component {
         })
             .then(response => response.data)
             .then(response => this.setState({
-                movie: response,
-                genreName: response.Genre.Name
+                movie: { ...response }
             }))
     }
 
 
     render() {
 
-        console.log(this.state.genreName);
+        const genre = { ...this.state.movie.Genre }.Name;
+        // console.log({ ...this.state.movie.Director }.Name)
         return (
-            <div className="movie-view">
+            <div className="movie-view" >
                 {/*  Nav */}
-                <div className="movie-poster">
+                < div className="movie-poster" >
                     <img src={this.state.movie.ImagePath} />
                 </div>
                 <div className="movie-body">
@@ -45,18 +44,18 @@ export class MovieView extends React.Component {
                         <span className="label">Description: </span>
                         <span className="value">{this.state.movie.Description}</span>
                     </div>
-                    {/* <div className="movie-genre">
+                    <div className="movie-genre">
                         <span className="label">Genre: </span>
                         <span className="link">
-                            <span className="value">{this.state.movie.Genre.Name}</span>
-                            <Link to="/genre-view"> more details</Link>
+                            <Link to={`/genre-view/${genre}`}><span className="value">{genre}</span>
+                            </Link>
                         </span>
-                    </div> */}
+                    </div>
                     <div className="movie-director">
                         <span className="label">Directed by: </span>
                         <span className="link">
-                            <span className="value">{JSON.stringify(this.state.movie.Director)}</span>
-                            <Link to="/director-view"> more details</Link>
+                            <Link to="/director-view">  <span className="value">{{ ...this.state.movie.Director }.Name}}</span>
+                            </Link>
                         </span>
                     </div>
                     <div className="movie-actors">
@@ -74,7 +73,7 @@ export class MovieView extends React.Component {
                     <br></br>
                     <Button onClick={() => { window.location.replace("/movies") }}>Back</Button>
                 </div>
-            </div>
+            </div >
         );
     }
 }

@@ -19,7 +19,7 @@ export class GenreView extends React.Component {
                     <span className="value">{movie.Genre.Description}</span>
                 </div>
 
-                <Button variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
+                <button className="primary" onClick={() => { onBackClick(null); }}>Back</button>
 
             </div>
         );

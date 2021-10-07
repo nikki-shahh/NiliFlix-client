@@ -6,12 +6,12 @@ import { MovieView } from './components/movie-view/movie-view';
 import { RegistrationView } from './components/registration-view/registration-view';
 import { ProfileView } from './components/profile-view/profile-view';
 import { EditProfileView } from './components/edit-profile/edit-profile-view';
-// import { DirectorView } from './components/director-view/director-view';
-// import { GenreView } from './components/genre-view/genre-view';
+import { DirectorView } from './components/director-view/director-view';
+import { GenreView } from './components/genre-view/genre-view';
 
 //Your manager
 // administers every route in your app
-export class App extends React.Component {
+export default class App extends React.Component {
     render() {
         const { movie, onMovieClick } = this.props;
         return (
@@ -28,12 +28,12 @@ export class App extends React.Component {
                 <Route exact={true} path="/movie-view/:title">
                     <MovieView></MovieView>
                 </Route>
-                {/* <Route exact={true} path="/genre-view">
+                <Route exact={true} path="/genre-view/:title">
                     <GenreView></GenreView>
                 </Route>
-                <Route exact={true} path="/director-view">
+                <Route exact={true} path="/director-view/:title">
                     <DirectorView></DirectorView>
-                </Route> */}
+                </Route>
                 <Route exact={true} path="/profile-view">
                     <ProfileView></ProfileView>
                 </Route>
@@ -44,4 +44,5 @@ export class App extends React.Component {
         );
     }
 }
+
 

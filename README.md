@@ -1,70 +1,70 @@
-# NiliFlix
-React App
+# Getting Started with Create React App
 
-## Description 
-Using React, build the client-side for my application called NiliFlix based on its existing
-<a href="https://github.com/nikki-shahh/NiliFlix">server-side</a> code (REST API and database) .The
-API and database that I built meet the information needs of NiliFlix users. This is a the interface they will use when making requests to, and receiving responses from, the
-server-side. The client-side of my NiliFlix application will include several interface views built
-using the React library that will handle data through the previously-defined REST API endpoints.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-#### User Stories:
-● As a user, I want to be able to access information on movies, directors, and genres so
-that I can learn more about movies I’ve watched or am interested in.<br>
-● As a user, I want to be able to create a profile so I can save data about my favorite
-movies
+## Available Scripts
 
-### Essential view and Features
+In the project directory, you can run:
 
-<p>
-Main view <br>
-● Returns a list of ALL movies to the user (each listed item with an image, title, and
-description)<br>
-● Sorting and filtering<br>
-● Ability to select a movie for more details
-</p>
-<p>Single movie view<br>
-● Returns data (description, genre, director, image) about a single movie to the user<br>
-● Allows users to add a movie to their list of favorites
-</p>
-<p>Login view<br>
-● Allows users to log in with a username and password
-Registration view<br>
-● Allows new users to register (username, password, email, birthday)
-</p>
-<p>Genre view<br>
-● Returns data about a genre, with a name and description<br>
-● Displays example movies
-</p>
-<p>
-Director view<br>
-● Returns data about a director (name, bio, birth year, death year)<br>
-● Displays example movies
-</p>
-<p>
-Profile view<br>
-● Allows users to update their user info (username, password, email, date of birth)<br>
-● Allows existing users to deregister<br>
-● Displays favorite movies<br>
-● Allows users to remove a movie from their list of favorites </p>
+### `yarn start`
 
-### Technical Requirements
-<ul>
-<li>The application must be a single-page application (SPA)</li>
-<li>The application must use state routing to navigate between views and share URLs</li>
-<li>The application must give users the option to filter movies</li>
-<li>The application must give users the option to sort movies</li>
-<li>The application must initially use Parcel as its build tool</li>
-<li>The application must be written using the React library and in ES2015+</li>
-<li>The application must be written with React Redux (hence respecting the Flux pattern)</li>
-<li>The application must use Bootstrap as a UI library for styling and responsiveness</li>
-<li>The application must contain a mix of class components and function components</li>
-<li>The application may be hosted online</li>
-</ul>
-### Dependencies
-...
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Built with:
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-...
+### `yarn test`
 
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `yarn eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `yarn build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

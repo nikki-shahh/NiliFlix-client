@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link, useHistory, Redirect } from "react-router-dom";
-import "./registration-view.scss";
+import "./registration-view.css";
 import axios from 'axios';
 
 export function RegistrationView(props) {

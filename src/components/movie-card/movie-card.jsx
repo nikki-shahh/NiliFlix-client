@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-import "./movie-card.scss";
+import "./movie-card.css";
 import { useHistory } from 'react-router-dom';
 
 
@@ -25,9 +25,9 @@ export function MovieCard(props) {
 
     return (
         <Card className="movie-card">
-            <Card.Img variant="top" src={movie.ImagePath} />
+            <a onClick={() => seeMore(movie)} href="#"><Card.Img variant="top" src={movie.ImagePath} /></a>
             <Card.Body>
-                <Card.Title>{movie.Title}</Card.Title>
+                <Card.Title> {movie.Title}</Card.Title>
                 <Card.Text>{movie.Description}</Card.Text>
                 <Button onClick={() => seeMore(movie)} variant="link">See more</Button>
             </Card.Body>

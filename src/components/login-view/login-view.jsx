@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import "./login-view.scss";
+import "./login-view.css";
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
