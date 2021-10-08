@@ -28,6 +28,7 @@ export class MovieView extends React.Component {
     render() {
 
         const genre = { ...this.state.movie.Genre }.Name;
+        const director = { ...this.state.movie.Director }.Name;
         // console.log({ ...this.state.movie.Director }.Name)
         return (
             <div className="movie-view" >
@@ -54,7 +55,7 @@ export class MovieView extends React.Component {
                     <div className="movie-director">
                         <span className="label">Directed by: </span>
                         <span className="link">
-                            <Link to="/director-view">  <span className="value">{{ ...this.state.movie.Director }.Name}}</span>
+                            <Link to={`/director/${director}`}>  <span className="value">{director}</span>
                             </Link>
                         </span>
                     </div>
