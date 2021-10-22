@@ -13,8 +13,9 @@ export class MovieCard extends React.Component {
 
         return (
             <Card>
-                <Card.Img className="img-card" variant="top" src={movie.ImagePath} />
-                <Card.Body>
+                <Link to={`/movies/${movie._id}`}>
+                    <Card.Img className="img-card" variant="top" src={movie.ImagePath} />
+                </Link>                <Card.Body>
                     <Card.Title>{movie.Title}</Card.Title>
                     <Card.Text>{movie.Description}</Card.Text>
                     <Link to={`/movies/${movie._id}`}>

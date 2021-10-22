@@ -27,10 +27,10 @@ export class NavBar extends React.Component {
         return (
             <Navbar bg="dark" collapseOnSelect fixed='top' expand="lg" variant="dark" >
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <img src={Logo} className="logo-header" />
 
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ml-auto">
-                        <li><img src={Logo} className="logo-header" /></li>
 
                         <Nav.Link as={Link} to={movies} className="link-text">
                             Movies

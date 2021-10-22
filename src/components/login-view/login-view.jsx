@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from "prop-types";
+import axios from 'axios';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
-import "./login-view.scss";
 import logo from "url:../../public/niliflix-logo.jpeg";
-import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+import "./login-view.scss";
 
 export function LoginView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,14 +19,12 @@ export function LoginView(props) {
             Password: password
         })
             .then(response => {
-                console.log(response);
-                localStorage.setItem("user", response.data.token);
-                localStorage.setItem("username", response.data.user.Username);
-                localStorage.setItem("userObj", JSON.stringify(response.data))
-                history.push("/movies")
+                const data = response.data;
+                props.onLoggedIn(data);
             })
-            .catch(err => console.error(err))
-
+            .catch(e => {
+                console.log('no such user')
+            });
     };
 
     return (
@@ -47,7 +43,7 @@ export function LoginView(props) {
                     </Form.Label>
                     <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                 </Form.Group>
-                <Button variant="info" type="submit" onClick={handleSubmit}>Sign in</Button>
+                <Button variant="info" type="submit" onClick={handleSubmit}>Log in</Button>
             </Form>
             <div className="sign-up">New to Niliflix? <Link to="/register">Sign up here</Link></div>
         </div >
@@ -59,4 +55,5 @@ LoginView.propTypes = {
         username: PropTypes.string.isRequired,
         password: PropTypes.string.isRequired,
     }),
+    onLoggedIn: PropTypes.func.isRequired
 }
