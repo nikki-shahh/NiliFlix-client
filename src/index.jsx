@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MainView from './components/main-view/main-view';
 import Container from 'react-bootstrap/Container';
+import MainView from './components/main-view/main-view';
+// import { createStore } from 'redux';
+// import { Provider } from 'react-redux';
+// import moviesApp from './reducers/reducers';
 
 import './index.scss';
-import { App } from './app';
-
+// import { devToolsEnhancer } from 'redux-devtools-extension';
+// const store = createStore(moviesApp, devToolsEnhancer());
 class MyFlixApplication extends React.Component {
     render() {
         return (
+            // <Provider store={store}>
             <Container>
-                <App></App>
+                <MainView />
             </Container>
+            // </Provider>
         );
     }
 }

@@ -13,8 +13,154 @@ body {
   text-align: center;
   padding: 20px;
 }
-.movie-card-col {
+
+.login-wrapper .logo {
+  max-width: 270px;
+}
+.register {
+  padding: 30px;
+  border: 0.3px solid grey;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 15px;
+}
+
+div {
+  width: 100%;
+}
+.movie-view {
+  color: rgba(55, 250, 250, 0.493);
+  background-color: #050505;
+}
+
+.movie-poster img {
   height: 700px;
+  border-radius: 5%;
+  display: block;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.movie-body {
+  padding-top: 10px;
+  text-align: left;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.movie-title {
+  color: #37fafa;
+  font-weight: bold;
+  font-size: 25px;
+  font-style: italic;
+}
+.img-card {
+  position: relative;
+  transition: transform 0.2s;
+  border-style: none;
+}
+
+.img-card:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.img-card:hover .overlay {
+  opacity: 1;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  transition: 0.5s ease;
+  opacity: 0;
+  bottom: 0;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+.director-view {
+  color: rgba(55, 250, 250, 0.493);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  padding: 20px;
+  margin-top: 5%;
+  border: 4px dotted #37fafa;
+}
+
+.director-name {
+  color: #37fafa;
+  font-weight: bold;
+  font-size: 25px;
+  font-style: italic;
+}
+
+.director-movies {
+  padding-bottom: 20px;
+}
+.genre-view {
+  color: rgba(55, 250, 250, 0.493);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  padding: 20px;
+  margin-top: 5%;
+  border: 4px dotted #37fafa;
+}
+
+.genre-name {
+  color: #37fafa;
+  font-weight: bold;
+  font-size: 25px;
+  font-style: italic;
+}
+
+.genre-description {
+  padding-bottom: 20px;
+}
+.profile-view {
+  padding: 30px;
+  border: 0.3px solid grey;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 15px;
+}
+
+.app-container {
+  padding: 30px;
+}
+.nav li {
+  display: inline;
+  padding-right: 20px;
+}
+
+.nav {
+  float: left;
+}
+
+header {
+  padding: 30px;
+  padding-bottom: 100px;
+}
+
+.nav .link {
+  color: #37fafa;
+}
+
+.link:hover {
+  color: rgba(55, 250, 250, 0.493);
+}
+
+.logo-header {
+  width: 30px;
+}
+.movie-card-col {
   overflow: hidden;
   z-index: 9;
   transition: 0.4s ease-in-out;
@@ -28,71 +174,5 @@ body {
 .movie-card-col img {
   height: auto;
   width: auto;
-}
-.movie-card {
-  text-align: center;
-}
-
-.card-body {
-  color: rgba(55, 250, 250, 0.493);
-  background-color: #080808;
-}
-.nav li {
-    display: inline;
-    padding-right: 20px;
-}
-.nav{
-    float: right;
-    
-}
-
-header {
-    padding-bottom: 80px;
-}
-.movie-view {
-  color: rgba(55, 250, 250, 0.493);
-  background-color: #050505;
-}
-
-.movie-poster img {
-  height: 700px;
-  float: left;
-  border-radius: 5%;
-  display: block;
-  padding-right: 20px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.movie-body {
-  padding-top: 30%;
-  text-align: left;
-}
-
-.label {
-  font-weight: bold;
-}
-
-.movie-title {
-  font-weight: bold;
-  font-size: 20px;
-  font-style: italic;
-}
-.registration-view {
-  min-width: 600px;
-  border: 1px solid rgba(55, 250, 250, 0.493);
-  position: fixed;
-  border-radius: 10px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  padding: 20px;
-}
-.profile-view {
-  padding: 30px;
-  border: 0.3px solid #c0bfbf;
-  box-shadow: 5px 5px 5px grey;
-  border-radius: 15px;
 }
 /*# sourceMappingURL=index.caa67093.css.map */

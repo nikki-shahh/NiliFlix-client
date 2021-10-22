@@ -1,42 +1,59 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import axios from "axios";
 import Button from 'react-bootstrap/Button';
+import "./director-view.scss";
 
 export class DirectorView extends React.Component {
 
+    state = {
+        director: {},
+    }
+    name = window.location.href.split("/director-view/")[1];
+
+    componentDidMount() {
+        axios.get(`http://niliflix.herokuapp.com/directors/${this.name}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem("user")}` }
+        })
+            .then(response => response.data)
+            .then(response => this.setState({
+                director: { ...response }
+            }))
+    }
+
     render() {
-        const { movie, onBackClick } = this.props;
+
+        const movies = this.state.director.Movies;
 
         return (
-            <div className="director-view">
+            < div className="director-view" >
 
                 <div className="director-name">
-                    <h1>
-                        <span className="value">{movie.Director.Name}</span>
-                    </h1>
+                    <h4>
+                        <div className="value">{this.state.director.Name}</div>
+                    </h4>
                 </div>
+                <br></br>
                 <div className="director-bio">
-                    <span className="value">{movie.Director.Bio}</span>
+                    <div>Bio:</div>
+                    <div className="value">{this.state.director.Bio}</div>
                 </div>
-
-                <div className="director-birthday">
-                    <span className="value">{movie.Director.Birth}</span>
+                <br></br>
+                <div className="director-birth">
+                    <div>Birthdate:</div>
+                    <div className="value">{this.state.director.Birth}</div>
                 </div>
+                <br></br>
                 <div className="director-movies">
-                    <span className="value">{movie.Director.Movies}</span>
+                    <div>Movies:</div>
+                    <div className="value">{movies + '.'}</div>
                 </div>
-                <Button variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
+                <br></br>
 
-            </div>
+                <Button variant="outline-info" onClick={() => { window.location.replace("/movies") }}>Back to list</Button>
+
+            </div >
         );
     }
 }
-DirectorView.propTypes = {
-    Director: PropTypes.shape({
-        Name: PropTypes.string,
-        Bio: PropTypes.string,
-        Birth: PropTypes.number,
-        Movies: PropTypes.array
-    }),
-};
+
 export default DirectorView;

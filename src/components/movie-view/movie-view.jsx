@@ -1,101 +1,116 @@
 import React from 'react';
-import PropTypes from "prop-types";
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
-
-import "./movie-view.scss";
+import Badge from 'react-bootstrap/Badge';
+import propTypes from 'prop-types';
+import { Link } from "react-router-dom";
 import axios from 'axios';
+import "./movie-view.scss";
+
 
 export class MovieView extends React.Component {
 
-    state = {
-        movie: {},
-        genreName: {},
-        onBackClick: null
-    };
-    movieTitle = window.location.href.split("/movie-view/")[1];
-
-    componentDidMount() {
-        axios.get(`http://niliflix.herokuapp.com/movies/${this.movieTitle}`, {
-            headers: { Authorization: `Bearer ${localStorage.getItem("user")}` }
-        })
-            .then(response => response.data)
-            .then(response => this.setState({
-                movie: response,
-                genreName: response.Genre.Name
-            }))
+    keypressCallback(event) {
+        console.log(event.key);
     }
 
+    componentDidMount() {
+        document.addEventListener('keypress', this.keypressCallback);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keypress', this.keypressCallback);
+    }
+
+    addFavorite() {
+        const token = localStorage.getItem('token');
+        const username = localStorage.getItem('user');
+
+        axios.post(`https:https://niliflix.herokuapp.com/users/${username}/movies/${this.props.movie._id}`, {}, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(response => {
+                alert(`Added to Favorites List`)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
 
     render() {
+        const { movie, onBackClick } = this.props;
+        const actors = movie.Actors;
 
-        console.log(this.state.genreName);
         return (
-            <div className="movie-view">
-                {/*  Nav */}
+            <div className="movie-view" >
                 <div className="movie-poster">
-                    <img src={this.state.movie.ImagePath} />
+                    <img src={movie.ImagePath} />
                 </div>
                 <div className="movie-body">
                     <div className="movie-title">
-                        <span className="label"></span>
-                        <span className="value">{this.state.movie.Title}  </span>
+                        <h1>
+                            <Badge bg="black">
+                                <span className="value">{movie.Title}</span>
+                            </Badge>
+                        </h1>
                     </div>
+                    <br></br>
+                    <br></br>
                     <div className="movie-description">
                         <span className="label">Description: </span>
-                        <span className="value">{this.state.movie.Description}</span>
+                        <span className="value">{movie.Description}</span>
                     </div>
-                    {/* <div className="movie-genre">
-                        <span className="label">Genre: </span>
-                        <span className="link">
-                            <span className="value">{this.state.movie.Genre.Name}</span>
-                            <Link to="/genre-view"> more details</Link>
-                        </span>
-                    </div> */}
+                    <div className="movie-genre">
+                        <Link to={`/genres/${movie.Genre.Name}`}>
+                            <Button variant="link">Genre: </Button>
+                        </Link>
+                        <span className="value">{movie.Genre.Name}</span>
+                    </div>
                     <div className="movie-director">
-                        <span className="label">Directed by: </span>
-                        <span className="link">
-                            <span className="value">{JSON.stringify(this.state.movie.Director)}</span>
-                            <Link to="/director-view"> more details</Link>
-                        </span>
+                        <Link to={`/directors/${movie.Director.Name}`}>
+                            <Button variant="link">Director: </Button>
+                        </Link>
+                        <span className="value">{movie.Director.Name}</span>
                     </div>
                     <div className="movie-actors">
                         <span className="label">Actors: </span>
-                        <span className="value">{this.state.movie.Actors}</span>
+                        <span className="value">{actors + '.'}</span>
                     </div>
                     <div className="movie-release">
                         <span className="label">Release: </span>
-                        <span className="value">{this.state.movie.Release}</span>
+                        <span className="value">{movie.Release}</span>
                     </div>
                     <div className="movie-rating">
                         <span className="label">Rating: </span>
-                        <span className="value">{this.state.movie.Rating}</span>
+                        <span className="value">{movie.Rating}</span>
                     </div>
                     <br></br>
-                    <Button onClick={() => { window.location.replace("/movies") }}>Back</Button>
+                    <Button variant="outline-info" className="fav-button" value={movie._id} onClick={(e) => this.addFavorite(e, movie)}>
+                        Add to Favorites
+                    </Button>
+                    <br></br>
+                    <br></br>
+                    <Button variant="outline-light" onClick={() => { onBackClick(null); }}>Back</Button>
                 </div>
             </div>
         );
     }
 }
-// MovieView.propTypes = {
-//     movie: PropTypes.shape({
-//         Title: PropTypes.string.isRequired,
-//         Description: PropTypes.string.isRequired,
-//         Release: PropTypes.number,
-//         Rating: PropTypes.number,
-//         ImagePath: PropTypes.string.isRequired,
-//         Genre: PropTypes.shape({
-//             Name: PropTypes.string,
-//             Description: PropTypes.string
-//         }),
-//         Director: PropTypes.shape({
-//             Name: PropTypes.string,
-//             Bio: PropTypes.string,
-//             Birth: PropTypes.number,
-//             Movies: PropTypes.array
-//         }),
-//         Featured: PropTypes.bool.isRequired,
-//         Actors: PropTypes.array.isRequired
-//     }),
-// };
+
+
+MovieView.propTypes = {
+    movie: propTypes.shape({
+        Title: propTypes.string.isRequired,
+        Description: propTypes.string.isRequired,
+        Release: PropTypes.number,
+        Rating: PropTypes.number,
+        ImagePath: PropTypes.string.isRequired,
+        Featured: propTypes.bool,
+        Genre: propTypes.shape({
+            Name: propTypes.string.isRequired
+        }),
+        Director: propTypes.shape({
+            Name: propTypes.string.isRequired
+        }),
+        Actors: PropTypes.array.isRequired
+    }).isRequired
+};

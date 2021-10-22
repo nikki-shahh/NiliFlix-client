@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import "./login-view.scss";
+import logo from "url:../../public/niliflix-logo.jpeg";
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
@@ -32,6 +33,7 @@ export function LoginView(props) {
 
     return (
         <div className="login-wrapper">
+            <img src={logo} className="logo" />
             <Form className="w-25 m-auto">
                 <Form.Group className="mb-3" controlId="formBasicUsername">
                     <Form.Label>

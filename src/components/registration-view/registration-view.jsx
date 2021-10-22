@@ -1,73 +1,171 @@
-import React, { useState } from 'react';
-import PropTypes from "prop-types";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import { Link, useHistory, Redirect } from "react-router-dom";
-import "./registration-view.scss";
+import React, { useState } from "react";
+import PropTypes from 'prop-types';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/row';
+import { Link } from "react-router-dom";
+
+
+import './registration-view.scss';
 
 export function RegistrationView(props) {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const [birthday, setBirthday] = useState('');
+    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [birthdate, setBirthdate] = useState("");
+
+
+    const [nameError, setNameError] = useState({});
+    const [usernameError, setUsernameError] = useState({});
+    const [passwordError, setPasswordError] = useState({});
+    const [emailError, setEmailError] = useState({});
+    const [birthdateError, setBirthdateError] = useState({});
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("http://niliflix.herokuapp.com/users", {
-            Username: username,
-            Password: password,
-            Email: email,
-            Birthday: birthday
-        })
-            .then(response => {
-                console.log(response);
-                alert("Thanks for your registration!")
-                window.location.replace("/");
-
+        let setisValid = formValidation();
+        if (setisValid) {
+            axios.post('https://niliflix.herokuapp.com/users', {
+                Name: name,
+                Username: username,
+                Password: password,
+                Email: email,
+                Birthdate: birthdate
             })
-            .catch(err => console.error(err))
+                .then(response => {
+                    const data = response.data;
+                    console.log(data);
+                    window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+                })
+                .catch(e => {
+                    console.log('error registering the user')
+                });
+        };
+    }
+
+    const formValidation = () => {
+        let nameError = {};
+        let usernameError = {};
+        let passwordError = {};
+        let emailError = {};
+        let birthdateError = {};
+        let isValid = true;
+
+        if (name === '') {
+            nameError.nameEmpty = "Please enter your Name.";
+            isValid = false;
+        }
+        if (username.trim().length < 4) {
+            usernameError.usernameShort = "Username incorrect. Use at least 4 characters.";
+            isValid = false;
+        }
+        if (password.trim().length < 5) {
+            passwordError.passwordMissing = "Password incorrect. Use at least 5 characters.";
+            isValid = false;
+        }
+        if (!(email && email.includes(".") && email.includes("@"))) {
+            emailError.emailNotEmail = "Email address incorrect.";
+            isValid = false;
+        }
+        if (birthdate === '') {
+            birthdateError.birthdateEmpty = "Please enter your birthdate.";
+            isValid = false;
+        }
+        setNameError(nameError);
+        setUsernameError(usernameError);
+        setPasswordError(passwordError);
+        setEmailError(emailError);
+        setBirthdateError(birthdateError);
+        return isValid;
     };
 
     return (
-        <div className=" registration-view mt-5">
-            <Form className="w-26 m-auto">
-                <Form.Group className="mb-3" controlId="formBasicUsername">
-                    <Form.Label>
-                        Username:
-                    </Form.Label>
-                    <Form.Control type="text" placeholder="Username" onChange={e => setUsername(e.target.value)} />
+        <Form className="register justify-content-md-center">
+            <Row>
+                <Form.Group controlId="formName">
+                    <Form.Label>Name:</Form.Label>
+                    <Form.Control type="text" value={name} onChange={e => setName(e.target.value)} />
+                    {Object.keys(nameError).map((key) => {
+                        return (
+                            <div key={key}>
+                                {nameError[key]}
+                            </div>
+                        );
+                    })}
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>
-                        Password:
-                    </Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+            </Row>
+
+            <Form.Group controlId="formUsername">
+                <Form.Label>Username:</Form.Label>
+                <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} />
+                {Object.keys(usernameError).map((key) => {
+                    return (
+                        <div key={key}>
+                            {usernameError[key]}
+                        </div>
+                    );
+                })}
+            </Form.Group>
+
+            <Row>
+                <Form.Group controlId="formPassword">
+                    <Form.Label>Create Password:</Form.Label>
+                    <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                    {Object.keys(passwordError).map((key) => {
+                        return (
+                            <div key={key}>
+                                {passwordError[key]}
+                            </div>
+                        );
+                    })}
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Email address:</Form.Label>
-                    <Form.Control type="email" placeholder="name@example.com" onChange={e => setEmail(e.target.value)} />
+            </Row>
+
+            <Row>
+                <Form.Group controlId="formEmail">
+                    <Form.Label>Email:</Form.Label>
+                    <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                    {Object.keys(emailError).map((key) => {
+                        return (
+                            <div key={key}>
+                                {emailError[key]}
+                            </div>
+                        );
+                    })}
                 </Form.Group>
-                <Form.Group>
-                    <Form.Label>
-                        Birthday:
-                    </Form.Label>
-                    <Form.Control type="date" placeholder="Birthdate" onChange={e => setBirthday(e.target.value)} />
-                </Form.Group>
-                <Button variant="info" type="submit" onClick={handleSubmit}>
-                    Sign up
-                </Button>
-            </Form>
-            <div className="sign-up">Already registered? <Link to="/">Log in here</Link></div>
-        </div>
+            </Row>
+
+            <Form.Group controlId="formBirthdate">
+                <Form.Label>Birthdate:</Form.Label>
+                <Form.Control type="date" value={birthdate} onChange={e => setBirthdate(e.target.value)} />
+                {Object.keys(birthdateError).map((key) => {
+                    return (
+                        <div key={key}>
+                            {birthdateError[key]}
+                        </div>
+                    );
+                })}
+            </Form.Group>
+
+            <span>
+                <Button type="submit" onClick={handleSubmit}>Submit</Button>
+                {' '}
+                <Link to="/">
+                    <Button variant="secondary" type="button">Back</Button>
+                </Link>
+            </span>
+        </Form >
     );
 }
 
 RegistrationView.propTypes = {
     register: PropTypes.shape({
-        username: PropTypes.string.isRequired,
-        password: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        birthday: PropTypes.string.isRequired,
+        Name: PropTypes.string.isRequired,
+        Username: PropTypes.string.isRequired,
+        Password: PropTypes.string.isRequired,
+        Email: PropTypes.string.isRequired,
+        Birthday: PropTypes.string.isRequired
     }),
 };

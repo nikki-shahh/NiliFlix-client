@@ -1,25 +1,40 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Button from 'react-bootstrap';
+import axios from "axios";
+import Button from 'react-bootstrap/Button';
+import "./genre-view.scss";
 
 export class GenreView extends React.Component {
 
+    state = {
+        genre: {},
+    }
+    name = window.location.href.split("/genre-view/")[1];
+
+    componentDidMount() {
+        axios.get(`http://niliflix.herokuapp.com/genres/${this.name}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem("user")}` }
+        })
+            .then(response => response.data)
+            .then(response => this.setState({
+                genre: { ...response }
+            }))
+    }
+
     render() {
-        const { movie, onBackClick } = this.props;
 
         return (
             <div className="genre-view">
 
                 <div className="genre-name">
-                    <h1>
-                        <span className="value">{movie.Genre.Name}</span>
-                    </h1>
+                    <h4>
+                        <span className="value">{this.state.genre.Name}</span>
+                    </h4>
                 </div>
                 <div className="genre-description">
-                    <span className="value">{movie.Genre.Description}</span>
+                    <span className="value">{this.state.genre.Description}</span>
                 </div>
 
-                <Button variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
+                <Button variant="outline-info" onClick={() => { window.location.replace("/movies") }}>Back to list</Button>
 
             </div>
         );
@@ -27,12 +42,10 @@ export class GenreView extends React.Component {
 }
 
 
-GenreView.propTypes = {
-    Genre: PropTypes.shape({
-        Name: PropTypes.string,
-        Description: PropTypes.string
-    }),
-};
-
-
+// GenreView.propTypes = {
+//     Genre: PropTypes.shape({
+//         Name: PropTypes.string,
+//         Description: PropTypes.string
+//     }),
+// };
 export default GenreView;
