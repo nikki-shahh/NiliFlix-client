@@ -25,7 +25,7 @@ export class MovieView extends React.Component {
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('user');
 
-        axios.post(`https:https://niliflix.herokuapp.com/users/${username}/movies/${this.props.movie._id}`, {}, {
+        axios.post(`https://niliflix.herokuapp.com/users/${username}/movies/${this.props.movie._id}`, {}, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {
@@ -38,7 +38,6 @@ export class MovieView extends React.Component {
 
     render() {
         const { movie, onBackClick } = this.props;
-        const actors = movie.Actors;
 
         return (
             <div className="movie-view" >
@@ -60,20 +59,22 @@ export class MovieView extends React.Component {
                         <span className="value">{movie.Description}</span>
                     </div>
                     <div className="movie-genre">
+                        <span className="value">Genre: </span>
                         <Link to={`/genres/${movie.Genre.Name}`}>
-                            <Button variant="link">Genre: </Button>
+                            <Button variant="link">{movie.Genre.Name} </Button>
                         </Link>
-                        <span className="value">{movie.Genre.Name}</span>
+
                     </div>
                     <div className="movie-director">
+                        <span className="value">Director: </span>
                         <Link to={`/directors/${movie.Director.Name}`}>
-                            <Button variant="link">Director: </Button>
+                            <Button variant="link">{movie.Director.Name} </Button>
                         </Link>
-                        <span className="value">{movie.Director.Name}</span>
+
                     </div>
                     <div className="movie-actors">
                         <span className="label">Actors: </span>
-                        <span className="value">{actors + '.'}</span>
+                        <span className="value">{movie.Actors}</span>
                     </div>
                     <div className="movie-release">
                         <span className="label">Release: </span>
@@ -101,9 +102,9 @@ MovieView.propTypes = {
     movie: propTypes.shape({
         Title: propTypes.string.isRequired,
         Description: propTypes.string.isRequired,
-        Release: PropTypes.number,
-        Rating: PropTypes.number,
-        ImagePath: PropTypes.string.isRequired,
+        Release: propTypes.number,
+        Rating: propTypes.number,
+        ImagePath: propTypes.string.isRequired,
         Featured: propTypes.bool,
         Genre: propTypes.shape({
             Name: propTypes.string.isRequired
@@ -111,6 +112,6 @@ MovieView.propTypes = {
         Director: propTypes.shape({
             Name: propTypes.string.isRequired
         }),
-        Actors: PropTypes.array.isRequired
+        Actors: propTypes.array.isRequired
     }).isRequired
 };

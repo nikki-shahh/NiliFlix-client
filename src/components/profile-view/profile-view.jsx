@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Button, Card, CardDeck, Form, Navbar, Row } from 'react-bootstrap';
 import "./profile-view.scss";
+import FavoriteMovies from "./favorite-movies";
 
 export class ProfileView extends React.Component {
-    constructor() {
-        super();
+
+    constructor(props) {
+        super(props);
 
         this.state = {
             Name: null,
@@ -52,10 +54,9 @@ export class ProfileView extends React.Component {
         const username = localStorage.getItem('user');
 
 
-        axios
-            .delete(`https://niliflix.herokuapp.com/users/${username}/movies/${movie._id}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            })
+        axios.delete(`https://niliflix.herokuapp.com/users/${username}/movies/${movie._id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
             .then(() => {
                 alert('Movie was removed');
                 this.componentDidMount();
@@ -63,7 +64,7 @@ export class ProfileView extends React.Component {
             .catch(function (error) {
                 console.log(error);
             })
-        // .then(() => window.location.reload());
+
     }
 
     handleUpdate(e, newName, newUsername, newPassword, newEmail, newBirthdate) {
@@ -151,9 +152,9 @@ export class ProfileView extends React.Component {
     }
 
     render() {
-        const { user } = JSON.parse(localStorage.getItem("userObj"));
-        const { FavoriteMovies, validated } = this.state;
-
+        const { movies } = this.props;
+        const { validated } = this.state;
+        const favoriteMovieList = movies.filter((movies) => { });
         return (
             <div>
                 <Navbar></Navbar>
@@ -163,30 +164,8 @@ export class ProfileView extends React.Component {
                     <Card className="profile-card">
                         <h2>Your Favorites Movies</h2>
                         <Card.Body>
-                            {FavoriteMovies.length === 0 && <div className="text-center">Empty.</div>}
-
-                            <div className="favorites-movies ">
-                                {FavoriteMovies.length > 0 &&
-                                    movies.map((movie) => {
-                                        if (movie._id === FavoriteMovies.find((favMovie) => favMovie === movie._id)) {
-                                            return (
-                                                <CardDeck className="movie-card-deck">
-                                                    <Card className="favorites-item card-content" style={{ width: '16rem' }} key={movie._id}>
-                                                        <Card.Img style={{ width: '18rem' }} className="movieCard" variant="top" src={movie.ImageURL} />
-                                                        <Card.Body>
-                                                            <Card.Title className="movie-card-title">{movie.Title}</Card.Title>
-                                                            <Button size='sm' className='profile-button remove-favorite' variant='danger' value={movie._id} onClick={(e) => this.removeFavouriteMovie(e, movie)}>
-                                                                Remove
-                                                            </Button>
-                                                        </Card.Body>
-                                                    </Card>
-                                                </CardDeck>
-                                            );
-                                        }
-                                    })}
-                            </div>
+                            <FavoriteMovies favoriteMovieList={favoriteMovieList} />
                         </Card.Body>
-
                         <h1 className="section">Update Profile</h1>
                         <Card.Body>
                             <Form noValidate validated={validated} className="update-form" onSubmit={(e) => this.handleUpdate(e, this.Name, this.Username, this.Password, this.Email, this.Birthdate)}>
@@ -218,13 +197,12 @@ export class ProfileView extends React.Component {
                                     <Form.Control type="date" placeholder="Change Birthdate" onChange={(e) => this.setBirthdate(e.target.value)} />
                                 </Form.Group>
 
-                                <Button variant='outline-info' type="submit">
+                                <Button variant='danger' type="submit">
                                     Update
                                 </Button>
-
                                 <h3>Delete your Account</h3>
                                 <Card.Body>
-                                    <Button variant='outline-info' onClick={(e) => this.handleDeleteUser(e)}>
+                                    <Button variant='danger' onClick={(e) => this.handleDeleteUser(e)}>
                                         Delete Account
                                     </Button>
                                 </Card.Body>
