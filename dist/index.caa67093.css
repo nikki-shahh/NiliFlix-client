@@ -17,14 +17,28 @@ body {
 .login-wrapper .logo {
   max-width: 270px;
 }
-.register {
-  padding: 30px;
-  border: 0.3px solid grey;
-  box-shadow: 5px 5px 5px grey;
-  border-radius: 15px;
+.register .logo {
+  max-width: 270px;
+  text-align: center;
 }
 
-div {
+.register {
+  padding: 30px;
+  border: 1px solid rgba(55, 250, 250, 0.493);
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 15px;
+  min-width: 500px;
+  border: 1px solid rgba(55, 250, 250, 0.493);
+  position: fixed;
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+}
+
+.register div {
   width: 100%;
 }
 .movie-view {
@@ -56,6 +70,11 @@ div {
   font-size: 25px;
   font-style: italic;
 }
+.card-body {
+  color: rgba(55, 250, 250, 0.493);
+  background-color: #080808;
+}
+
 .img-card {
   position: relative;
   transition: transform 0.2s;

@@ -29,6 +29,11 @@ export class MainView extends React.Component {
         this.state = {
             movies: [],
             user: null,
+            username: '',
+            password: '',
+            email: '',
+            birthday: '',
+            favoriteMovies: [],
         };
     }
 
@@ -39,6 +44,7 @@ export class MainView extends React.Component {
                 user: localStorage.getItem('user')
             });
             this.getMovies(accessToken);
+            this.getUser(accessToken);
         }
     }
 
@@ -54,15 +60,28 @@ export class MainView extends React.Component {
         this.getMovies(authData.token);
     }
 
+    //log out
+    onLoggedOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.setState({
+            user: null
+        });
+    }
+
     //  Get user recent data from DB
-    getUsers(token) {
-        axios.post('https://niliflix.herokuapp.com/users', {
-            headers: { Authorization: `Bearer ${token}` }
+    getUser(token) {
+        const username = localStorage.getItem('user');
+        axios.get(`https://niliflix.herokuapp.com/users/${username}`, {
+            headers: { Authorization: `Bearer ${token}` },
         })
             .then(response => {
-                // Assign the result to the state
                 this.setState({
-                    users: response.data
+                    username: response.data.Username,
+                    password: response.data.Password,
+                    email: response.data.Email,
+                    birthday: response.data.Birthday,
+                    favoriteMovies: response.data.FavoriteMovies,
                 });
                 console.log(response)
             })
@@ -77,7 +96,6 @@ export class MainView extends React.Component {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {
-                // Assign the result to the state
                 this.setState({
                     movies: response.data
                 });
@@ -95,8 +113,7 @@ export class MainView extends React.Component {
 
 
     render() {
-        const { movies, user } = this.state;
-        console.log("render", user);
+        const { movies, user, username, email, password, birthday, favoriteMovies } = this.state;
 
         return (
             <Router>
@@ -124,10 +141,34 @@ export class MainView extends React.Component {
                     }} />
 
                     <Route path="/profile" render={() => {
-                        if (!user) return <Col>
-                            <ProfileView />
-                        </Col>
+                        if (!user)
+                            return (
+                                <Col>
+                                    <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                                </Col>
+                            );
+                        if (movies.length === 0) return <div className="main-view" />;
+                        return (
+                            <>
+                                <Col>
+                                    <ProfileView username={username} password={password} email={email} birthday={birthday} favoriteMovies={favoriteMovies} movies={movies} onBackClick={() => history.goBack()} removeMovie={(_id) => this.removeFromFavorites(_id)} />
+                                </Col>
+                            </>)
                     }} />
+
+                    {/* <Route exact path="/editProfile" render={({ history }) => {
+                        if (!user)
+                            return
+                        <Col md={6}>
+                            <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                        </Col>
+
+                        if (movies.length === 0) return <div className="main-view" />;
+                        return <Col md={8}>
+                            <Edit username={username} password={password} email={email} birthday={birthday} onBackClick={() => history.goBack()} />
+                        </Col>
+                        v
+                    }} /> */}
 
                     <Route path="/movies/:movieId" render={({ match, history }) => {
                         if (!user) return <Col>

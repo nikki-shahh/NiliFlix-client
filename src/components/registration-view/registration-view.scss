@@ -10,17 +10,27 @@
 //     padding: 20px;
 //  }
 
-//  .registration-view .logo {
-//     max-width: 270px;
-// }
+ .register .logo {
+    max-width: 270px;
+    text-align:center;
+}
 
 .register {
     padding:30px;
-    border:0.3px solid grey;
+    border:1px solid rgb(55, 250, 250, 0.493);
     box-shadow: 5px 5px 5px grey;
     border-radius: 15px;
+    min-width:500px;
+        border:1px solid rgb(55, 250, 250, 0.493);
+        position: fixed;
+        border-radius: 10px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align:center;
+        padding: 20px;
   }
   
-  div {
+  .register div {
     width: 100%;;
   }
