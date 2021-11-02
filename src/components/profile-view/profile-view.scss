@@ -1,19 +1,13 @@
-// .profile-view {
-//     min-width:300px;
-//     position: fixed;
-//     border-radius: 5px;
-//     top: 50%;
-//     left: 50%;
-//     transform: translate(-50%, -50%);
-//     text-align:left;
-//     padding: 20px;
-//     margin-top: 5%;
-//  }
+
 .profile-view {
+    width:900px;
     padding:30px;
     border:0.3px solid grey;
     box-shadow: 5px 5px 5px grey;
     border-radius: 15px;
+  }
+  .favorites-item{
+    float:left;
   }
   
   .app-container {

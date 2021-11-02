@@ -25,31 +25,34 @@ export class NavBar extends React.Component {
         if (!user) return null;
 
         return (
-            <Navbar bg="dark" collapseOnSelect fixed='top' expand="lg" variant="dark" >
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <img src={Logo} className="logo-header" />
+            <div className="navbar-style">
+                <Navbar bg="dark" collapseOnSelect fixed='top' expand="lg" variant="dark"
+                >
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <img src={Logo} className="logo-header" />
 
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="ml-auto">
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="ml-auto">
 
-                        <Nav.Link as={Link} to={movies} className="link-text">
-                            Movies
-                        </Nav.Link>
+                            <Nav.Link as={Link} to={movies} className="link-text">
+                                Movies
+                            </Nav.Link>
 
-                        <Nav.Link as={Link} to={profile} className="link-text">
-                            Profile
-                        </Nav.Link>
+                            <Nav.Link as={Link} to={profile} className="link-text">
+                                Profile
+                            </Nav.Link>
 
-                        <Nav.Link to={'/'} onClick={this.onLoggedOut}>
-                            Log Out
-                        </Nav.Link>
+                            <Nav.Link to={'/'} onClick={this.onLoggedOut}>
+                                Log Out
+                            </Nav.Link>
 
-                    </Nav>
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search" />
-                    </Form>
-                </Navbar.Collapse>
-            </Navbar>
+                        </Nav>
+                        <Form inline>
+                            <FormControl type="text" placeholder="Search" />
+                        </Form>
+                    </Navbar.Collapse>
+                </Navbar>
+            </div>
         );
     }
 }
