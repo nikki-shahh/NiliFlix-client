@@ -40979,20 +40979,20 @@ class ProfileView extends _reactDefault.default.Component {
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('user');
         _axiosDefault.default.put(`https://niliflix.herokuapp.com/users/${username} `, {
-            username: this.state.username,
-            password: this.state.password,
-            email: this.state.email,
-            birthday: this.state.birthday
+            Username: this.state.username,
+            Password: this.state.password,
+            Email: this.state.email,
+            Birthday: this.state.birthday
         }, {
             headers: {
                 Authorization: `Bearer ${token} `
             }
         }).then((response)=>{
             this.setState({
-                username: response.data.username,
-                password: response.data.password,
-                email: response.data.email,
-                birthday: response.data.birthday
+                username: response.data.Username,
+                password: response.data.Password,
+                email: response.data.Email,
+                birthday: response.data.Birthday
             });
             localStorage.setItem('user', this.state.username);
             console.log(response.data);

@@ -70,10 +70,10 @@ export class ProfileView extends React.Component {
         const username = localStorage.getItem('user');
 
         axios.put(`https://niliflix.herokuapp.com/users/${username} `, {
-            username: this.state.username,
-            password: this.state.password,
-            email: this.state.email,
-            birthday: this.state.birthday
+            Username: this.state.username,
+            Password: this.state.password,
+            Email: this.state.email,
+            Birthday: this.state.birthday
         },
             {
                 headers: { Authorization: `Bearer ${token} ` },
@@ -81,10 +81,10 @@ export class ProfileView extends React.Component {
             })
             .then((response) => {
                 this.setState({
-                    username: response.data.username,
-                    password: response.data.password,
-                    email: response.data.email,
-                    birthday: response.data.birthday,
+                    username: response.data.Username,
+                    password: response.data.Password,
+                    email: response.data.Email,
+                    birthday: response.data.Birthday,
                 });
                 localStorage.setItem('user', this.state.username);
                 console.log(response.data);
