@@ -1,38 +1,49 @@
 import React from "react";
+import { Row, Col, Button, Figure } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import { Button, Card, CardDeck, Row } from 'react-bootstrap';
-import { Button, Row, Col, Card } from "react-bootstrap";
 
-import "./profile-view.scss";
 
-function FavoriteMovies({ favoriteMovieList }) {
+
+function FavoriteMovies({ favoriteMovies, movies, removeFavouriteMovie }) {
     return (
-        <Card>
-            <Card.Body>
-                <Row>
-                    <Col xs={12}>
-                        <h4>Favorite Movies</h4>
-                    </Col>
-                </Row>
-                <Row>
-                    {favoriteMovieList.map(({ ImagePath, Title, _id }) => {
+        <>
+            <Row>
+                <Col xs={12}>
+                    <h4>Your Favorites Movies</h4>
+                </Col>
+            </Row>
+            <Row>
+                {favoriteMovies.length === 0 ? <div className="text-center">Empty.</div> : null}
+
+                {favoriteMovies.length > 0
+                    ?
+                    favoriteMovies.map((movieId) => {
+                        const movie = movies.find((m) => m._id === movieId);
                         return (
-                            <CardDeck className="movie-card-deck">
-                                <Card className="favorites-item card-content" style={{ width: '16rem' }} key={movie._id}>
-                                    <Card.Img style={{ width: '18rem' }} className="movieCard" variant="top" src={movie.ImagePath} />
-                                    <Card.Body>
-                                        <Card.Title className="movie-card-title">{movie.Title}</Card.Title>
-                                        <Button size='sm' className='profile-button remove-favorite' variant='danger' value={movie._id} onClick={(e) => this.removeFavouriteMovie(e, movie)}>
-                                            Remove
-                                        </Button>
-                                    </Card.Body>
-                                </Card>
-                            </CardDeck>
+                            <Col xs={12} md={6} lg={3} key={movie._id} className='movie-favorite'>
+                                <Figure>
+                                    <Link to={`/movies/${movie._id}`}>
+                                        <Figure.Image
+                                            src={movie.ImagePath}
+                                            alt={movie.Title}
+                                        />
+                                        <Figure.Caption>
+                                            <h6 className="movie-card-title">{movie.Title}</h6>
+                                        </Figure.Caption>
+                                    </Link>
+                                    <Button size='sm' className='profile-button remove-favorite' variant='outline-danger' value={movie._id} onClick={() => removeFavouriteMovie(movie._id)}>
+                                        Remove from list
+                                    </Button>
+                                </Figure>
+                            </Col>
                         );
-                    })}
-                </Row>
-            </Card.Body>
-        </Card>
+
+                    })
+
+                    : null
+                }
+            </Row>
+        </>
     );
 }
 

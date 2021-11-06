@@ -1,16 +1,36 @@
-
-.profile-view {
-    width:900px;
-    padding:30px;
-    border:0.3px solid grey;
-    box-shadow: 5px 5px 5px grey;
-    border-radius: 15px;
+.movie-favorite{
+  margin-bottom: 15px;
+  z-index: 9;
+  &:hover,
+  &:active {
+    transform: scale(0.97);
+    cursor: pointer;
   }
-  .favorites-item{
-    float:left;
+  figure{
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: auto;
+    width: 100%;
+    img{
+      display: block;
+      height: 400px;
+      margin: auto;
+    }
+    figcaption{
+      margin: 5px;
+      text-align: center;
   }
-  
-  .app-container {
-  padding: 30px;
+  a:hover{
+    text-decoration: none;
   }
-  
+  }
+  Button{
+    display: block;
+    margin: auto;
+  }
+}
+.card{
+  margin-bottom: 15px;
+}

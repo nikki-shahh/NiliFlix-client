@@ -1,11 +1,10 @@
 .movie-view {
-    color:rgb(55, 250, 250, 0.493);
-    background-color: rgb(5, 5, 5);
-  }
+  color: #fff;
+  background: #141414; 
+ }
 
 .movie-poster img{
     height: 700px;
-    border-radius: 5%;
     display: block;
     padding-right: 20px;
     margin-left: auto;
@@ -21,8 +20,6 @@
       font-weight: bold;
   }
   .movie-title {
-    color:rgb(55, 250, 250);
     font-weight: bold;
-    font-size: 25px;
     font-style: italic;
   }

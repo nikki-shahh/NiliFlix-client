@@ -46,27 +46,26 @@ export class MovieView extends React.Component {
                 </div>
                 <div className="movie-body">
                     <div className="movie-title">
-                        <h1>
+                        <h4>
                             <Badge bg="black">
                                 <span className="value">{movie.Title}</span>
                             </Badge>
-                        </h1>
+                        </h4>
                     </div>
-                    <br></br>
                     <br></br>
                     <div className="movie-description">
                         <span className="label">Description: </span>
                         <span className="value">{movie.Description}</span>
                     </div>
                     <div className="movie-genre">
-                        <span className="value">Genre: </span>
+                        <span className="label">Genre: </span>
                         <Link to={`/genres/${movie.Genre.Name}`}>
                             <Button variant="link">{movie.Genre.Name} </Button>
                         </Link>
 
                     </div>
                     <div className="movie-director">
-                        <span className="value">Director: </span>
+                        <span className="label">Director: </span>
                         <Link to={`/directors/${movie.Director.Name}`}>
                             <Button variant="link">{movie.Director.Name} </Button>
                         </Link>
@@ -74,7 +73,7 @@ export class MovieView extends React.Component {
                     </div>
                     <div className="movie-actors">
                         <span className="label">Actors: </span>
-                        <span className="value">{movie.Actors}</span>
+                        <span className="value">{movie.Actors + "."}</span>
                     </div>
                     <div className="movie-release">
                         <span className="label">Release: </span>

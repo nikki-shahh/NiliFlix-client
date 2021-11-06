@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/row';
 import { Link } from "react-router-dom";
 import logo from "url:../../public/niliflix-logo.jpeg";
 
@@ -89,33 +88,29 @@ export function RegistrationView(props) {
                 })}
             </Form.Group>
 
-            <Row>
-                <Form.Group controlId="formPassword">
-                    <Form.Label>Create Password:</Form.Label>
-                    <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} />
-                    {Object.keys(passwordError).map((key) => {
-                        return (
-                            <div key={key}>
-                                {passwordError[key]}
-                            </div>
-                        );
-                    })}
-                </Form.Group>
-            </Row>
+            <Form.Group controlId="formPassword">
+                <Form.Label>Create Password:</Form.Label>
+                <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                {Object.keys(passwordError).map((key) => {
+                    return (
+                        <div key={key}>
+                            {passwordError[key]}
+                        </div>
+                    );
+                })}
+            </Form.Group>
 
-            <Row>
-                <Form.Group controlId="formEmail">
-                    <Form.Label>Email:</Form.Label>
-                    <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} />
-                    {Object.keys(emailError).map((key) => {
-                        return (
-                            <div key={key}>
-                                {emailError[key]}
-                            </div>
-                        );
-                    })}
-                </Form.Group>
-            </Row>
+            <Form.Group controlId="formEmail">
+                <Form.Label>Email:</Form.Label>
+                <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                {Object.keys(emailError).map((key) => {
+                    return (
+                        <div key={key}>
+                            {emailError[key]}
+                        </div>
+                    );
+                })}
+            </Form.Group>
 
             <Form.Group controlId="formBirthday">
                 <Form.Label>Birthday:</Form.Label>
@@ -130,11 +125,11 @@ export function RegistrationView(props) {
             </Form.Group>
 
             <span>
-                <Button type="submit" onClick={handleSubmit}>Submit</Button>
+                <Button type="submit" onClick={handleSubmit}>Sign up</Button>
                 {' '}
-                <Link to="/">
-                    <Button variant="secondary" type="button">Back</Button>
-                </Link>
+                <br></br>
+                <br></br>
+                <div className="sign-up">Already registered? <Link to="/">Log in here</Link></div>
             </span>
         </Form >
     );

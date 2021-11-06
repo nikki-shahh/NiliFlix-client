@@ -26,7 +26,7 @@ export class NavBar extends React.Component {
 
         return (
             <div className="navbar-style">
-                <Navbar bg="dark" collapseOnSelect fixed='top' expand="lg" variant="dark"
+                <Navbar collapseOnSelect fixed='top' expand="lg" variant="dark"
                 >
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <img src={Logo} className="logo-header" />

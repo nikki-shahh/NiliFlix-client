@@ -45,6 +45,9 @@ export function LoginView(props) {
                 </Form.Group>
                 <Button variant="info" type="submit" onClick={handleSubmit}>Log in</Button>
             </Form>
+            <br></br>
+            <br>
+            </br>
             <div className="sign-up">New to Niliflix? <Link to="/register">Sign up here</Link></div>
         </div >
 

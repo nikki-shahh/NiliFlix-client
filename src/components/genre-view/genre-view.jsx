@@ -11,10 +11,11 @@ export function GenreView(props) {
         <>
             <Row className="genre-view">
                 <Col>
-                    <div className="genre-name">
+                    <h4 className="genre-name">
                         <span className="label">Name: </span>
                         <span className="value">{genre.Name}</span>
-                    </div>
+                    </h4>
+                    <br></br>
                     <div className="genre-description">
                         <span className="label">Description: </span>
                         <span className="value">{genre.Description}</span>
