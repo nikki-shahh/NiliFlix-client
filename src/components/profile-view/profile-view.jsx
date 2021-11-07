@@ -1,9 +1,8 @@
 import React from "react";
-import { Row, Col, Card, Container } from "react-bootstrap";
+import { Row, Form, Button, Col, Card, Container } from "react-bootstrap";
 import axios from "axios";
 import UserInfo from "./user-info";
 import FavoriteMovies from "./favorite-movies";
-import UpdateUser from "./update-user";
 import './profile-view.scss';
 
 export class ProfileView extends React.Component {
@@ -145,7 +144,39 @@ export class ProfileView extends React.Component {
                     <Col xs={12} sm={8}>
                         <Card>
                             <Card.Body>
-                                <UpdateUser handleUpdate={this.handleUpdate} setUsername={this.setUsername} setPassword={this.setPassword} setEmail={this.setEmail} setBirthday={this.setBirthday} handleDeleteUser={this.handleDeleteUser} />
+                                <h4 className="section">Update Profile</h4>
+
+                                <Form className="update-form" onSubmit={(e) => this.handleUpdate(e)}>
+                                    <Form.Group>
+                                        Username
+                                        <Form.Control type='text' name="Username" placeholder="New Username" onChange={(e) => this.setUsername(e.target.value)} required />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        Password
+                                        <Form.Control type='password' name="Password" placeholder="New Password" onChange={(e) => this.setPassword(e.target.value)} required />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        Email Address
+                                        <Form.Control type='email' name="Email" placeholder="New Email" onChange={(e) => this.setEmail(e.target.value)} required />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        Birthday
+                                        <Form.Control type='date' name="Birthday" onChange={(e) => this.setBirthday(e.target.value)} />
+                                    </Form.Group>
+                                    <Button variant='danger' type="submit" >
+                                        Update
+                                    </Button>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+
+                                    <h6>Delete your Account</h6>
+                                    <Card.Body>
+                                        <Button variant='danger' onClick={(e) => this.handleDeleteUser(e)}>
+                                            Delete Account
+                                        </Button>
+                                    </Card.Body>
+                                </Form>
                             </Card.Body>
                         </Card>
                     </Col>
