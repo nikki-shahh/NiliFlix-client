@@ -67,35 +67,6 @@ body {
   font-weight: bold;
   font-style: italic;
 }
-.card {
-  margin-bottom: 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: auto;
-  text-align: center;
-  width: 100%;
-  z-index: 9;
-}
-.card:hover, .card:active {
-  transform: scale(0.97);
-  cursor: pointer;
-}
-.card a:hover {
-  text-decoration: none;
-}
-
-.card-body {
-  color: #fff;
-  background: #141414;
-}
-
-.img-card {
-  display: block;
-  height: 400px;
-  margin: auto;
-  position: relative;
-  border-style: none;
-}
 .director-view {
   position: fixed;
   top: 50%;
@@ -165,11 +136,40 @@ body {
 }
 
 .navbar-style {
-  margin-bottom: 100px;
+  margin-bottom: 60px;
 }
 
 .navbar {
   background: #141414;
 }
 
+.card {
+  margin-bottom: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: auto;
+  text-align: center;
+  width: 100%;
+  z-index: 9;
+}
+.card:hover, .card:active {
+  transform: scale(0.97);
+  cursor: pointer;
+}
+.card a:hover {
+  text-decoration: none;
+}
+
+.card-body {
+  color: #fff;
+  background: #141414;
+}
+
+.img-card {
+  display: block;
+  height: 400px;
+  margin: auto;
+  position: relative;
+  border-style: none;
+}
 /*# sourceMappingURL=index.caa67093.css.map */
