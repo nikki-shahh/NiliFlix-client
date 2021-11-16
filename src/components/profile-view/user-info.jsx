@@ -2,7 +2,7 @@ import React from "react";
 
 function UserInfo({ username, email, birthday }) {
     const date = new Date(Date(birthday));
-    dob = new Intl.DateTimeFormat('en-US').format(date);
+    const dob = new Intl.DateTimeFormat('en-US').format(date);
     return (
         <>
             <h4>Your Info </h4>
