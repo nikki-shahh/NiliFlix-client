@@ -18,6 +18,11 @@ body {
 .login-wrapper .logo {
   max-width: 270px;
 }
+
+.login-title {
+  font-weight: bold;
+  color: rgba(55, 250, 250, 0.493);
+}
 .register .logo {
   max-width: 270px;
   text-align: center;
@@ -130,6 +135,10 @@ body {
 
 .card {
   margin-bottom: 15px;
+}
+
+div .text-center {
+  text-align: center;
 }
 .logo-header {
   width: 30px;

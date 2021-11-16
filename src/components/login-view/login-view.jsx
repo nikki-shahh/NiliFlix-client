@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from "prop-types";
 import axios from 'axios';
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import logo from "url:../../public/niliflix-logo.jpeg";
+import { connect } from 'react-redux';
+import { Form, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom';
+import logo from "url:../../public/niliflix-logo.jpeg";
 import "./login-view.scss";
 
-export function LoginView(props) {
+function LoginView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -24,6 +23,7 @@ export function LoginView(props) {
             })
             .catch(e => {
                 console.log('no such user')
+                alert('Incorrect Username or Password!')
             });
     };
 
@@ -54,10 +54,8 @@ export function LoginView(props) {
 
     );
 }
-LoginView.propTypes = {
-    user: PropTypes.shape({
-        username: PropTypes.string.isRequired,
-        password: PropTypes.string.isRequired,
-    }),
-    onLoggedIn: PropTypes.func.isRequired
-}
+const mapDispatchToProps = (dispatch) => ({
+    handleSubmit: (username, password) => dispatch(handleSubmit(Username, Password))
+});
+
+export default connect(null, mapDispatchToProps)(LoginView);

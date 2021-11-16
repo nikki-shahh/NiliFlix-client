@@ -1,11 +1,13 @@
 import React from "react";
 import { Row, Form, Button, Col, Card, Container } from "react-bootstrap";
 import axios from "axios";
+import { connect } from 'react-redux';
+import { setUser, updateUser } from "../../actions/actions";
 import UserInfo from "./user-info";
 import FavoriteMovies from "./favorite-movies";
 import './profile-view.scss';
 
-export class ProfileView extends React.Component {
+class ProfileView extends React.Component {
     constructor() {
         super();
 
@@ -54,9 +56,12 @@ export class ProfileView extends React.Component {
             , {
                 headers: { Authorization: `Bearer ${token}` },
             })
-            .then(() => {
+            .then((response) => {
                 alert('Movie was removed');
-                window.location.reload();
+                this.setState({
+                    favoriteMovies: response.data.FavoriteMovies,
+                });
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -132,6 +137,7 @@ export class ProfileView extends React.Component {
         const { favoriteMovies } = this.state;
         const { movies } = this.props;
         return (
+
             <Container>
                 <Row className="profile-view">
                     <Col xs={12} sm={4}>
@@ -183,7 +189,7 @@ export class ProfileView extends React.Component {
                     <Col>
                         <Card>
                             <Card.Body>
-                                <FavoriteMovies favoriteMovies={favoriteMovies} movies={movies} removeFavouriteMovie={this.removeFavouriteMovie} />
+                                <FavoriteMovies favoriteMovies={favoriteMovies} movies={movies} removeFavouriteMovie={(movieId) => this.removeFavouriteMovie(movieId)} />
                             </Card.Body>
                         </Card>
                     </Col>
@@ -192,3 +198,11 @@ export class ProfileView extends React.Component {
         );
     }
 }
+let mapStateToProps = state => {
+    return {
+        user: state.user,
+        movies: state.movies
+    }
+}
+
+export default connect(mapStateToProps, { setUser, updateUser })(ProfileView);
