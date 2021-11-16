@@ -1,6 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Badge from 'react-bootstrap/Badge';
+import { Button, Badge } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import axios from 'axios';
