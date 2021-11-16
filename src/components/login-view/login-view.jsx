@@ -13,7 +13,7 @@ function LoginView(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(username, password);
-        axios.post("http://niliflix.herokuapp.com/login", {
+        axios.post("https://niliflix.herokuapp.com/login", {
             Username: username,
             Password: password
         })
