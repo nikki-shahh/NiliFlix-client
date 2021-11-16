@@ -13,7 +13,7 @@ function FavoriteMovies({ favoriteMovies, movies, removeFavouriteMovie }) {
                 </Col>
             </Row>
             <Row>
-                {favoriteMovies.length === 0 ? <div className="text-center">Empty.</div> : null}
+                {favoriteMovies.length === 0 ? <div className="text-center">Your list is empty!</div> : null}
 
                 {favoriteMovies.length > 0
                     ?

@@ -29,6 +29,7 @@ export function LoginView(props) {
 
     return (
         <div className="login-wrapper">
+            <div className="login-title">Welcome! </div>
             <img src={logo} className="logo" />
             <Form className="w-25 m-auto">
                 <Form.Group className="mb-3" controlId="formBasicUsername">
