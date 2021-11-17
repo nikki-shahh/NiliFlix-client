@@ -62,9 +62,19 @@ Profile view<br>
 <li>The application may be hosted online</li>
 </ul>
 ### Dependencies
-...
+
+react-bootstrap
+axios
+react-dom
+react-redux
+react-router-dom
+redux
+redux-devtools-extension
+@parcel/transformer-image
+@parcel/transformer-sass
+parcel-bundler
 
 ### Built with:
 
-...
+<ul><li>React<li></ul>
 
