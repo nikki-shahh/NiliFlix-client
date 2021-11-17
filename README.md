@@ -76,5 +76,4 @@ parcel-bundler
 
 ### Built with:
 
-<ul><li>React<li></ul>
-
+<ul>React</ul>
