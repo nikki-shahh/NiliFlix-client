@@ -1,44 +1,50 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, ThemeProvider } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import LoginView from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
-import { MovieView } from '../movie-view/movie-view';
+import MovieView from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import ProfileView from '../profile-view/profile-view';
 import { NavBar } from '../navbar-view/navbar-view';
-import { setMovies, setFilter } from '../../actions/actions';
+import { setMovies, setFilter, setUser } from '../../actions/actions';
 import './main-view.scss';
 import MoviesList from '../movies-list/movies-list';
+
 
 class MainView extends React.Component {
     constructor() {
         super();
-        this.state = {
-            user: null,
-        };
     }
 
     componentDidMount() {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
-            this.setState({
-                user: localStorage.getItem('user')
-            });
+            this.getUser(accessToken);
             this.getMovies(accessToken);
         }
+    }
+
+    getUser(token) {
+        const username = localStorage.getItem('user');
+        axios.get(`https://niliflix.herokuapp.com/users/${username}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((response) => {
+                this.props.setUser(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     // Log In
     onLoggedIn(authData) {
         console.log(authData);
-        this.setState({
-            user: authData.user.Username
-        });
-
+        this.props.setUser(authData.user);
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
@@ -48,9 +54,8 @@ class MainView extends React.Component {
     onLoggedOut() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        this.setState({
-            user: null
-        });
+        this.props.setUser(null);
+
     }
 
     //   Get all movies in DB
@@ -67,12 +72,13 @@ class MainView extends React.Component {
     }
 
     render() {
-        let { movies } = this.props;
-        const { user } = this.state;
+        let { movies, user } = this.props;
+        console.log('render', movies, user);
+        if (!user) return null;
 
         return (
             <Router>
-                <NavBar user={user} />
+                <NavBar user={user.Username} />
 
                 <Row className="main-view justify-content-md-center">
 
@@ -134,7 +140,10 @@ class MainView extends React.Component {
     }
 };
 let mapStateToProps = state => {
-    return { movies: state.movies }
+    return {
+        movies: state.movies,
+        user: state.user
+    }
 }
 
-export default connect(mapStateToProps, { setMovies, setFilter })(MainView);
+export default connect(mapStateToProps, { setMovies, setFilter, setUser })(MainView);

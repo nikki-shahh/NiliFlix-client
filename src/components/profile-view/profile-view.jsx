@@ -2,51 +2,12 @@ import React from "react";
 import { Row, Form, Button, Col, Card, Container } from "react-bootstrap";
 import axios from "axios";
 import { connect } from 'react-redux';
-import { setUser, updateUser } from "../../actions/actions";
+import { setUser } from "../../actions/actions";
 import UserInfo from "./user-info";
 import FavoriteMovies from "./favorite-movies";
 import './profile-view.scss';
 
 class ProfileView extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            username: null,
-            Password: null,
-            email: null,
-            birthday: null,
-            favoriteMovies: [],
-        };
-    }
-
-    componentDidMount() {
-        const accessToken = localStorage.getItem('token');
-        if (accessToken !== null) {
-            this.getUser(accessToken);
-        }
-    }
-
-    getUser(token) {
-        const username = localStorage.getItem('user');
-        axios.get(`https://niliflix.herokuapp.com/users/${username}`, {
-            headers: { Authorization: `Bearer ${token}` },
-        })
-            .then((response) => {
-
-                this.setState({
-                    username: response.data.Username,
-                    password: response.data.Password,
-                    email: response.data.Email,
-                    birthday: response.data.Birthday,
-                    favoriteMovies: response.data.FavoriteMovies,
-                });
-                console.log(response.data)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
 
     removeFavouriteMovie(id) {
         const token = localStorage.getItem('token');
@@ -58,47 +19,39 @@ class ProfileView extends React.Component {
             })
             .then((response) => {
                 alert('Movie was removed');
-                this.setState({
-                    favoriteMovies: response.data.FavoriteMovies,
-                });
-
+                this.props.setUser(response.data);
             })
             .catch(function (error) {
                 console.log(error);
             })
 
     }
+
     handleUpdate(e) {
         e.preventDefault();
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('user');
 
         axios.put(`https://niliflix.herokuapp.com/users/${username} `, {
-            Username: this.state.username,
-            Password: this.state.password,
-            Email: this.state.email,
-            Birthday: this.state.birthday
+            Username: this.props.user.Username,
+            Password: this.props.user.Password,
+            Email: this.props.user.Email,
+            Birthday: this.props.user.Birthday
         },
             {
                 headers: { Authorization: `Bearer ${token} ` },
 
             })
             .then((response) => {
-                this.setState({
-                    username: response.data.Username,
-                    password: response.data.Password,
-                    email: response.data.Email,
-                    birthday: response.data.Birthday,
-                });
-                localStorage.setItem('user', this.state.username);
-                console.log(response.data);
-                console.log(this.state.username);
+                this.props.setUser(response.data);
+                localStorage.setItem('user', response.data.Username);
                 alert(username + " has been updated!");
             })
             .catch(function (error) {
                 console.log(error);
             })
     }
+
     setUsername(value) {
         this.state.username = value;
     }
@@ -114,6 +67,7 @@ class ProfileView extends React.Component {
     setBirthday(value) {
         this.state.birthday = value;
     }
+
     handleDeleteUser(e) {
         e.preventDefault();
         const token = localStorage.getItem('token');
@@ -123,6 +77,7 @@ class ProfileView extends React.Component {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then(() => {
+                this.props.setUser(null);
                 localStorage.removeItem('user');
                 localStorage.removeItem('token');
                 alert('Your account has been deleted.');
@@ -134,8 +89,8 @@ class ProfileView extends React.Component {
     }
 
     render() {
-        const { favoriteMovies } = this.state;
-        const { movies } = this.props;
+        const { movies, user } = this.props;
+
         return (
 
             <Container>
@@ -143,7 +98,7 @@ class ProfileView extends React.Component {
                     <Col xs={12} sm={4}>
                         <Card>
                             <Card.Body>
-                                <UserInfo username={this.state.username} email={this.state.email} birthday={this.state.birthday} />
+                                <UserInfo username={user.Username} email={user.Email} birthday={user.Birthday} />
                             </Card.Body>
                         </Card>
                     </Col>
@@ -189,7 +144,7 @@ class ProfileView extends React.Component {
                     <Col>
                         <Card>
                             <Card.Body>
-                                <FavoriteMovies favoriteMovies={favoriteMovies} movies={movies} removeFavouriteMovie={(movieId) => this.removeFavouriteMovie(movieId)} />
+                                <FavoriteMovies favoriteMovies={user.FavoriteMovies} movies={movies} removeFavouriteMovie={(movieId) => this.removeFavouriteMovie(movieId)} />
                             </Card.Body>
                         </Card>
                     </Col>
@@ -205,4 +160,4 @@ let mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { setUser, updateUser })(ProfileView);
+export default connect(mapStateToProps, { setUser })(ProfileView);

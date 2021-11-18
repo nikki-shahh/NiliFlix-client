@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import logo from "url:../../public/niliflix-logo.jpeg";
 import "./login-view.scss";
 
+
 function LoginView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

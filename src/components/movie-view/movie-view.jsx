@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Button, Badge } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { setUser } from '../../actions/actions';
 import "./movie-view.scss";
 
 
@@ -28,6 +30,7 @@ export class MovieView extends React.Component {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {
+                this.props.setUser(response.data);
                 alert(`Added to Favorites List`)
             })
             .catch(function (error) {
@@ -113,3 +116,4 @@ MovieView.propTypes = {
         Actors: propTypes.array.isRequired
     }).isRequired
 };
+export default connect(null, { setUser })(MovieView);
