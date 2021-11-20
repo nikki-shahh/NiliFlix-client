@@ -8,6 +8,7 @@ import "./login-view.scss";
 
 
 function LoginView(props) {
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -58,5 +59,4 @@ function LoginView(props) {
 const mapDispatchToProps = (dispatch) => ({
     handleSubmit: (username, password) => dispatch(handleSubmit(Username, Password))
 });
-
 export default connect(null, mapDispatchToProps)(LoginView);

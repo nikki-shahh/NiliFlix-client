@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Row, Col, ThemeProvider } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Row, Col } from 'react-bootstrap';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import LoginView from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import MovieView from '../movie-view/movie-view';
@@ -14,10 +14,12 @@ import { setMovies, setFilter, setUser } from '../../actions/actions';
 import './main-view.scss';
 import MoviesList from '../movies-list/movies-list';
 
-
 class MainView extends React.Component {
     constructor() {
         super();
+        this.state = {
+            activeSession: false,
+        };
     }
 
     componentDidMount() {
@@ -25,6 +27,9 @@ class MainView extends React.Component {
         if (accessToken !== null) {
             this.getUser(accessToken);
             this.getMovies(accessToken);
+            this.setState(newActiveSession => ({
+                activeSession: !newActiveSession
+            }));
         }
     }
 
@@ -74,12 +79,21 @@ class MainView extends React.Component {
     render() {
         let { movies, user } = this.props;
         console.log('render', movies, user);
-        if (!user) return null;
 
+        if (!user || movies.length === 0) return <Router>
+            <Row className="main-view justify-content-md-center">
+                <Col>
+                    {
+                        this.state.activeSession ? <div> Loading ...</div>
+                            :
+                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                    }
+                </Col>
+            </Row>
+        </Router>
         return (
             <Router>
                 <NavBar user={user.Username} />
-
                 <Row className="main-view justify-content-md-center">
 
                     <Route exact path="/" render={() => {
@@ -88,13 +102,6 @@ class MainView extends React.Component {
                         </Col>
                         if (movies.length === 0) return <div className="main-view" />;
                         return <MoviesList movies={movies} />;
-                    }} />
-
-                    <Route path="/register" render={() => {
-                        if (user) return <Redirect to="/" />
-                        return <Col>
-                            <RegistrationView />
-                        </Col>
                     }} />
 
                     <Route path="/movies/:movieId" render={({ match, history }) => {
@@ -133,9 +140,8 @@ class MainView extends React.Component {
                         if (movies.length === 0) return;
                         return <ProfileView history={history} movies={movies} />
                     }} />
-
                 </Row>
-            </Router>
+            </Router >
         );
     }
 };
