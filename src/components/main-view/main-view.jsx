@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import LoginView from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import MovieView from '../movie-view/movie-view';
@@ -102,6 +102,13 @@ class MainView extends React.Component {
                         </Col>
                         if (movies.length === 0) return <div className="main-view" />;
                         return <MoviesList movies={movies} />;
+                    }} />
+
+                    <Route path="/register" render={() => {
+                        if (user) return <Redirect to="/" />
+                        return <Col>
+                            <RegistrationView />
+                        </Col>
                     }} />
 
                     <Route path="/movies/:movieId" render={({ match, history }) => {
