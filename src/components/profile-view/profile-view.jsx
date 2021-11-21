@@ -33,10 +33,10 @@ class ProfileView extends React.Component {
         const username = localStorage.getItem('user');
 
         axios.put(`https://niliflix.herokuapp.com/users/${username} `, {
-            Username: this.props.user.Username,
-            Password: this.props.user.Password,
-            Email: this.props.user.Email,
-            Birthday: this.props.user.Birthday
+            Username: this.Username || this.props.user.Username,
+            Password: this.Password || this.props.user.Password,
+            Email: this.Email || this.props.user.Email,
+            Birthday: this.Birthday || this.props.user.Birthday
         },
             {
                 headers: { Authorization: `Bearer ${token} ` },
@@ -53,19 +53,31 @@ class ProfileView extends React.Component {
     }
 
     setUsername(value) {
-        this.state.username = value;
+        this.setState({
+            Username: value
+        });
+        this.Username = value;
     }
 
     setPassword(value) {
-        this.state.password = value;
+        this.setState({
+            Password: value
+        });
+        this.Password = value;
     }
 
     setEmail(value) {
-        this.state.email = value;
+        this.setState({
+            Email: value
+        });
+        this.Email = value;
     }
 
     setBirthday(value) {
-        this.state.birthday = value;
+        this.setState({
+            Birthday: value
+        });
+        this.Birthday = value;
     }
 
     handleDeleteUser(e) {
@@ -149,7 +161,7 @@ class ProfileView extends React.Component {
                         </Card>
                     </Col>
                 </Row >
-            </Container>
+            </Container >
         );
     }
 }
