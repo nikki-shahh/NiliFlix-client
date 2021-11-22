@@ -39,8 +39,8 @@ export class MovieView extends React.Component {
     };
 
     render() {
-        const { movie, onBackClick } = this.props;
-
+        const { movie, user, onBackClick } = this.props;
+        const alreadyFavorited = user.FavoriteMovies.includes(movie._id);
         return (
             <div className="movie-view" >
                 <div className="movie-poster">
@@ -86,8 +86,8 @@ export class MovieView extends React.Component {
                         <span className="value">{movie.Rating}</span>
                     </div>
                     <br></br>
-                    <Button variant="outline-info" className="fav-button" value={movie._id} onClick={(e) => this.addFavorite(e, movie)}>
-                        Add to Favorites
+                    <Button variant="outline-info" className="fav-button" value={movie._id} disabled={alreadyFavorited} onClick={(e) => this.addFavorite(e, movie)}>
+                        {alreadyFavorited ? "Already in your favorite" : "Add to Favorites"}
                     </Button>
                     <br></br>
                     <br></br>
@@ -116,4 +116,11 @@ MovieView.propTypes = {
         Actors: propTypes.array.isRequired
     }).isRequired
 };
-export default connect(null, { setUser })(MovieView);
+
+let mapStateToProps = state => {
+    return {
+        user: state.user,
+        movies: state.movies
+    }
+}
+export default connect(mapStateToProps, { setUser })(MovieView);

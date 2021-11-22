@@ -17,28 +17,37 @@ function FavoriteMovies({ favoriteMovies, movies, removeFavouriteMovie }) {
 
                 {favoriteMovies.length > 0
                     ?
-                    favoriteMovies.map((movieId) => {
-                        const movie = movies.find((m) => m._id === movieId);
-                        return (
-                            <Col xs={12} md={6} lg={3} key={movie._id} className='movie-favorite'>
-                                <Figure>
-                                    <Link to={`/movies/${movie._id}`}>
-                                        <Figure.Image
-                                            src={movie.ImagePath}
-                                            alt={movie.Title}
-                                        />
-                                        <Figure.Caption>
-                                            <h6 className="movie-card-title">{movie.Title}</h6>
-                                        </Figure.Caption>
-                                    </Link>
-                                    <Button size='sm' className='profile-button remove-favorite' variant='outline-danger' value={movie._id} onClick={() => removeFavouriteMovie(movie._id)}>
-                                        Remove from list
-                                    </Button>
-                                </Figure>
-                            </Col>
-                        );
+                    favoriteMovies.reduce(
+                        (xs, movieId) => {
+                            if (!xs.includes(movieId)) {
+                                xs.push(movieId)
+                            }
+                            return xs;
+                        },
+                        []
+                    )
+                        .map((movieId) => {
+                            const movie = movies.find((m) => m._id === movieId);
+                            return (
+                                <Col xs={12} md={6} lg={3} key={movie._id} className='movie-favorite'>
+                                    <Figure>
+                                        <Link to={`/movies/${movie._id}`}>
+                                            <Figure.Image
+                                                src={movie.ImagePath}
+                                                alt={movie.Title}
+                                            />
+                                            <Figure.Caption>
+                                                <h6 className="movie-card-title">{movie.Title}</h6>
+                                            </Figure.Caption>
+                                        </Link>
+                                        <Button size='sm' className='profile-button remove-favorite' variant='outline-danger' value={movie._id} onClick={() => removeFavouriteMovie(movie._id)}>
+                                            Remove from list
+                                        </Button>
+                                    </Figure>
+                                </Col>
+                            );
 
-                    })
+                        })
 
                     : null
                 }

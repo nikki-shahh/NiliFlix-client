@@ -41566,7 +41566,8 @@ class MovieView extends _reactDefault.default.Component {
         });
     }
     render() {
-        const { movie , onBackClick  } = this.props;
+        const { movie , user , onBackClick  } = this.props;
+        const alreadyFavorited = user.FavoriteMovies.includes(movie._id);
         return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
             className: "movie-view",
             __source: {
@@ -41839,6 +41840,7 @@ class MovieView extends _reactDefault.default.Component {
                             variant: "outline-info",
                             className: "fav-button",
                             value: movie._id,
+                            disabled: alreadyFavorited,
                             onClick: (e)=>this.addFavorite(e, movie)
                             ,
                             __source: {
@@ -41846,7 +41848,7 @@ class MovieView extends _reactDefault.default.Component {
                                 lineNumber: 89
                             },
                             __self: this,
-                            children: "Add to Favorites"
+                            children: alreadyFavorited ? "Already in your favorite" : "Add to Favorites"
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx("br", {
                             __source: {
@@ -41897,7 +41899,13 @@ MovieView.propTypes = {
         Actors: _propTypesDefault.default.array.isRequired
     }).isRequired
 };
-exports.default = _reactRedux.connect(null, {
+let mapStateToProps = (state)=>{
+    return {
+        user: state.user,
+        movies: state.movies
+    };
+};
+exports.default = _reactRedux.connect(mapStateToProps, {
     setUser: _actions.setUser
 })(MovieView);
 
@@ -42809,7 +42817,10 @@ function FavoriteMovies({ favoriteMovies , movies , removeFavouriteMovie  }) {
                         __self: this,
                         children: "Your list is empty!"
                     }) : null,
-                    favoriteMovies.length > 0 ? favoriteMovies.map((movieId)=>{
+                    favoriteMovies.length > 0 ? favoriteMovies.reduce((xs, movieId)=>{
+                        if (!xs.includes(movieId)) xs.push(movieId);
+                        return xs;
+                    }, []).map((movieId)=>{
                         const movie = movies.find((m)=>m._id === movieId
                         );
                         return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
@@ -42819,13 +42830,13 @@ function FavoriteMovies({ favoriteMovies , movies , removeFavouriteMovie  }) {
                             className: "movie-favorite",
                             __source: {
                                 fileName: "src/components/profile-view/favorite-movies.jsx",
-                                lineNumber: 23
+                                lineNumber: 32
                             },
                             __self: this,
                             children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Figure, {
                                 __source: {
                                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                                    lineNumber: 24
+                                    lineNumber: 33
                                 },
                                 __self: this,
                                 children: [
@@ -42833,7 +42844,7 @@ function FavoriteMovies({ favoriteMovies , movies , removeFavouriteMovie  }) {
                                         to: `/movies/${movie._id}`,
                                         __source: {
                                             fileName: "src/components/profile-view/favorite-movies.jsx",
-                                            lineNumber: 25
+                                            lineNumber: 34
                                         },
                                         __self: this,
                                         children: [
@@ -42842,21 +42853,21 @@ function FavoriteMovies({ favoriteMovies , movies , removeFavouriteMovie  }) {
                                                 alt: movie.Title,
                                                 __source: {
                                                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                                                    lineNumber: 26
+                                                    lineNumber: 35
                                                 },
                                                 __self: this
                                             }),
                                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Figure.Caption, {
                                                 __source: {
                                                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                                                    lineNumber: 30
+                                                    lineNumber: 39
                                                 },
                                                 __self: this,
                                                 children: /*#__PURE__*/ _jsxRuntime.jsx("h6", {
                                                     className: "movie-card-title",
                                                     __source: {
                                                         fileName: "src/components/profile-view/favorite-movies.jsx",
-                                                        lineNumber: 31
+                                                        lineNumber: 40
                                                     },
                                                     __self: this,
                                                     children: movie.Title
@@ -42873,7 +42884,7 @@ function FavoriteMovies({ favoriteMovies , movies , removeFavouriteMovie  }) {
                                         ,
                                         __source: {
                                             fileName: "src/components/profile-view/favorite-movies.jsx",
-                                            lineNumber: 34
+                                            lineNumber: 43
                                         },
                                         __self: this,
                                         children: "Remove from list"
