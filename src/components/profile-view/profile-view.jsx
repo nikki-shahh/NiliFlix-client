@@ -53,30 +53,18 @@ class ProfileView extends React.Component {
     }
 
     setUsername(value) {
-        this.setState({
-            Username: value
-        });
         this.Username = value;
     }
 
     setPassword(value) {
-        this.setState({
-            Password: value
-        });
         this.Password = value;
     }
 
     setEmail(value) {
-        this.setState({
-            Email: value
-        });
         this.Email = value;
     }
 
     setBirthday(value) {
-        this.setState({
-            Birthday: value
-        });
         this.Birthday = value;
     }
 

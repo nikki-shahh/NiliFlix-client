@@ -1,8 +1,6 @@
 import React from "react";
 
 function UserInfo({ username, email, birthday }) {
-    const date = new Date(Date(birthday));
-    const dob = new Intl.DateTimeFormat('en-US').format(date);
     return (
         <>
             <h4>Your Info </h4>
@@ -13,7 +11,7 @@ function UserInfo({ username, email, birthday }) {
                 <p> {email}</p>
 
                 <h6>Birthday:</h6>
-                <p> {dob}</p>
+                <p> {birthday}</p>
             </div>
         </>
     );
