@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Spinner } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import LoginView from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -18,7 +18,7 @@ class MainView extends React.Component {
     constructor() {
         super();
         this.state = {
-            activeSession: false,
+            activeSession: true,
         };
     }
 
@@ -27,9 +27,10 @@ class MainView extends React.Component {
         if (accessToken !== null) {
             this.getUser(accessToken);
             this.getMovies(accessToken);
-            this.setState(newActiveSession => ({
-                activeSession: !newActiveSession
-            }));
+        } else {
+            this.setState({
+                activeSession: false
+            });
         }
     }
 
@@ -78,29 +79,26 @@ class MainView extends React.Component {
 
     render() {
         let { movies, user } = this.props;
-        console.log('render', movies, user);
-
-        if (!user || movies.length === 0) return <Router>
+        console.log('render', movies, user, ((!user || movies.length === 0) && this.state.activeSession));
+        if ((!user || movies.length === 0) && this.state.activeSession) return (
             <Row className="main-view justify-content-md-center">
                 <Col>
-                    {
-                        this.state.activeSession ? <div> Loading ...</div>
-                            :
-                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-                    }
+                    <div class="m-5 d-flex justify-content-center">
+                        <Spinner animation="grow" variant="info" />
+                        <Spinner animation="grow" variant="light" />
+                    </div>
                 </Col>
-            </Row>
-        </Router>
+            </Row>);
+
         return (
             <Router>
-                <NavBar user={user.Username} />
+                <NavBar user={user} />
                 <Row className="main-view justify-content-md-center">
 
                     <Route exact path="/" render={() => {
                         if (!user) return <Col>
                             <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                         </Col>
-                        if (movies.length === 0) return <div className="main-view" />;
                         return <MoviesList movies={movies} />;
                     }} />
 
@@ -112,20 +110,14 @@ class MainView extends React.Component {
                     }} />
 
                     <Route path="/movies/:movieId" render={({ match, history }) => {
-                        if (!user) return <Col>
-                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-                        </Col>
-                        if (movies.length === 0) return <div className="main-view" />;
+                        if (!user) return <Redirect to="/" />
                         return <Col md={8}>
                             <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
                         </Col>
                     }} />
 
                     <Route path="/directors/:name" render={({ match, history }) => {
-                        if (!user) return <Col>
-                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-                        </Col>
-                        if (movies.length === 0) return <div className="main-view" />;
+                        if (!user) return <Redirect to="/" />
                         return <Col md={8}>
                             <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
                         </Col>
@@ -133,18 +125,14 @@ class MainView extends React.Component {
                     } />
 
                     <Route path="/genres/:name" render={({ match, history }) => {
-                        if (!user) return <Col>
-                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-                        </Col>
-                        if (movies.length === 0) return <div className="main-view" />;
+                        if (!user) return <Redirect to="/" />
                         return <Col md={8}>
                             <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} />
                         </Col>
                     }} />
 
                     <Route exact path='/users/:username' render={({ history }) => {
-                        if (!user) return <LoginView onLoggedIn={(data) => this.onLoggedIn(data)} />;
-                        if (movies.length === 0) return;
+                        if (!user) return <Redirect to="/" />
                         return <ProfileView history={history} movies={movies} />
                     }} />
                 </Row>

@@ -129,7 +129,7 @@ export function RegistrationView(props) {
                 {' '}
                 <br></br>
                 <br></br>
-                <div className="sign-up">Already registered? <Link to="/">Log in here</Link></div>
+                <div className="sign-up">Already registered? Log in <Link to="/">here</Link></div>
             </span>
         </Form >
     );
