@@ -110,7 +110,7 @@ class ProfileView extends React.Component {
                                 <Form className="update-form" onSubmit={(e) => this.handleUpdate(e)}>
                                     <Form.Group>
                                         Username
-                                        <Form.Control type='text' name="Username" placeholder="New Username" onChange={(e) => this.setUsername(e.target.value)} required />
+                                        <Form.Control type='text' name="Username" placeholder={user.Username} onChange={(e) => this.setUsername(e.target.value)} />
                                     </Form.Group>
                                     <Form.Group>
                                         Password
@@ -118,7 +118,7 @@ class ProfileView extends React.Component {
                                     </Form.Group>
                                     <Form.Group>
                                         Email Address
-                                        <Form.Control type='email' name="Email" placeholder="New Email" onChange={(e) => this.setEmail(e.target.value)} required />
+                                        <Form.Control type='email' name="Email" placeholder={user.Email} onChange={(e) => this.setEmail(e.target.value)} />
                                     </Form.Group>
                                     <Form.Group>
                                         Birthday
