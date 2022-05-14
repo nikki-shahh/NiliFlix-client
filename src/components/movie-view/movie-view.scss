@@ -1,0 +1,25 @@
+.movie-view {
+  color: #fff;
+  background: #141414; 
+ }
+
+.movie-poster img{
+    height: 700px;
+    display: block;
+    padding-right: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .movie-body{
+    padding-top:10px;
+    text-align: left;
+  }
+  .label
+  {
+      font-weight: bold;
+  }
+  .movie-title {
+    font-weight: bold;
+    font-style: italic;
+  }

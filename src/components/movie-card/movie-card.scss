@@ -1,0 +1,29 @@
+.card{
+	margin-bottom: 15px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: auto;
+	text-align: center;
+	width: 100%;
+	z-index: 9;
+  &:hover,
+  &:active {
+    transform: scale(0.97);
+    cursor: pointer;
+  }
+  a:hover{
+
+	text-decoration: none;
+}
+}
+.card-body{
+	color: #fff;
+	background: #141414;}
+
+.img-card {
+	display: block;
+	height: 400px;
+	margin: auto;
+	position: relative;
+  	border-style: none;
+}

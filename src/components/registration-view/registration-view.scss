@@ -1,0 +1,23 @@
+
+ .register .logo {
+    max-width: 270px;
+    text-align:center;
+}
+
+.register {
+  margin-top: 50px;
+  background-color: black;
+  border:1px solid rgb(55, 250, 250, 0.493);
+  border-radius: 15px;
+  min-width:500px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align:left;
+  padding: 30px;
+  }
+  
+  .register div {
+    width: 100%;
+  }

@@ -1,0 +1,39 @@
+.movie-favorite{
+  margin-bottom: 15px;
+  z-index: 9;
+  &:hover,
+  &:active {
+    transform: scale(0.97);
+    cursor: pointer;
+  }
+  figure{
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: auto;
+    width: 100%;
+    img{
+      display: block;
+      height: 400px;
+      margin: auto;
+    }
+    figcaption{
+      margin: 5px;
+      text-align: center;
+  }
+  a:hover{
+    text-decoration: none;
+  }
+  }
+  Button{
+    display: block;
+    margin: auto;
+  }
+}
+.card{
+  margin-bottom: 15px;
+}
+div .text-center{
+  text-align: center;
+}
